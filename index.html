@@ -3,6 +3,44 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="./index.css">
+    <style>
+        .display {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .display-qeus .grid-container {
+            text-align: center;
+            padding: 20px;
+            display: grid;
+            grid-column-gap: 5px;
+            grid-row-gap: 5px;
+            background: pink;
+            grid-template-areas: "header header header header header" "sidebar content content content content" "footer footer footer footer footer";
+            grid-template-rows: 50px 150px 50px;
+            grid-template-columns: 200px 200px 200px;
+        }
+        
+        .display-qeus .header {
+            grid-area: header;
+            background: #fff
+        }
+        
+        .display-qeus .content {
+            grid-area: content;
+            background: #fffa90
+        }
+        
+        .display-qeus .sidebar {
+            grid-area: sidebar;
+            background: #5bc0de
+        }
+        
+        .display-qeus .footer {
+            grid-area: footer;
+            background: #ffff00
+        }
+    </style>
 </head>
 
 <body>
@@ -14,60 +52,126 @@
         <div class="left">
             <h2>开发规范：</h2>
             <a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow">正确的开发流程Git-flow</a>
-            <h2>HTML DOM => Node NodeType Element NodeList</h2>
-            <a href="http://10tiao.com/html/400/201504/205221675/1.html">JavaScript中Element与Node的区别，children与childNodes的区别</a>
             <div>
-                <h2>HTML DOM 节点</h2>
-                <p>在 HTML DOM （文档对象模型）中，每个部分都是节点：</p>
-                <ul>
-                    <li>文档本身是文档节点</li>
-                    <li>所有 HTML 元素是元素节点</li>
-                    <li>所有 HTML 属性是属性节点</li>
-                    <li>HTML 元素内的文本是文本节点</li>
-                    <li>注释是注释节点</li>
-                </ul>
+                <h2>HTML DOM => Node NodeType Element NodeList</h2>
+                <a href="http://10tiao.com/html/400/201504/205221675/1.html">JavaScript中Element与Node的区别，children与childNodes的区别</a>
+                <div>
+                    <h2>HTML DOM 节点</h2>
+                    <p>在 HTML DOM （文档对象模型）中，每个部分都是节点：</p>
+                    <ul>
+                        <li>文档本身是文档节点</li>
+                        <li>所有 HTML 元素是元素节点</li>
+                        <li>所有 HTML 属性是属性节点</li>
+                        <li>HTML 元素内的文本是文本节点</li>
+                        <li>注释是注释节点</li>
+                    </ul>
+                </div>
+                <div>
+                    <h2>Node?</h2>
+                    <p>Node(节点)是DOM层次结构中的任何类型的对象的通用名称，Node有很多类型，如元素节点，属性节点，文本节点，注释节点等，</p>
+                    <p>Node有几个子类型：Element,Text, Attribute,RootElement,Comment,Namespace等,这里就是通过NodeType区分</p>
+                    <table class="dataintable" style="margin: 0px auto; border: 1px solid #c0c0c0; border-collapse: collapse; color: #333333; font-family: Georgia, 'Times New Roman', Times, san-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 25px; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: #ffffff; width: 440px; height: 153px;"
+                        cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <th style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px;">节点类型</th>
+                                <th style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px;">NodeType</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">元素element</td>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">1</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">属性attr</td>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">2</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">文本text</td>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">3</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">注释comments</td>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">8</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">文档document</td>
+                                <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">9</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Node具有childNodes属性，获取到的列表就是NodeList类型</p>
+                    <h2>Element?</h2>
+                    <p><strong>Element</strong>继承了Node类，也就是说<strong>Element</strong>是Node多种类型中的一种，即当NodeType为1时Node即为ElementNode，另外<strong>Element</strong>扩展了Node，<strong>Element</strong>拥有id、class、children等属性，当然也有childNodes属性，但是获取到的值不一样，children获取到的就是元素，childNodes获得的就是包含空白的Text的节点</p>
+                    <p>元素(Element)和结点(Node)的区别，元素是一个小范围的定义，必须是含有完整信息的结点才是一个元素，例如&lt;div&gt;…&lt;/div&gt;。但是一个结点不一定是一个元素，而一个元素一定是一个结点。</p>
+                    <p style="color: red;">一个需要注意的地方就是，HTML文档两个标签之间的空白也是这棵树的一个节点（Text节点）。 &lt;a&gt; &lt;b&gt;&lt;/b&gt; &lt;a&gt; 中a有三个节点text, b , text</p>
+                    <img src="./assets/imgs/elements_fun1.jpg" alt="">
+                    <img src="./assets/imgs/elements_fun2.jpg" alt="">
+                    <img src="./assets/imgs/elements_fun3.jpg" alt="">
+                </div>
             </div>
-            <h2>Node?</h2>
-            <p>Node(节点)是DOM层次结构中的任何类型的对象的通用名称，Node有很多类型，如元素节点，属性节点，文本节点，注释节点等，</p>
-            <p>Node有几个子类型：Element,Text, Attribute,RootElement,Comment,Namespace等,这里就是通过NodeType区分</p>
-            <table class="dataintable" style="margin: 0px auto; border: 1px solid #c0c0c0; border-collapse: collapse; color: #333333; font-family: Georgia, 'Times New Roman', Times, san-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 25px; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: #ffffff; width: 440px; height: 153px;"
-                cellspacing="0" cellpadding="0">
-                <tbody>
-                    <tr>
-                        <th style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px;">节点类型</th>
-                        <th style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px;">NodeType</th>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">元素element</td>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">1</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">属性attr</td>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">2</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">文本text</td>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">3</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">注释comments</td>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">8</td>
-                    </tr>
-                    <tr>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">文档document</td>
-                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">9</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p>Node具有childNodes属性，获取到的列表就是NodeList类型</p>
-            <h2>Element?</h2>
-            <p><strong>Element</strong>继承了Node类，也就是说<strong>Element</strong>是Node多种类型中的一种，即当NodeType为1时Node即为ElementNode，另外<strong>Element</strong>扩展了Node，<strong>Element</strong>拥有id、class、children等属性，当然也有childNodes属性，但是获取到的值不一样，children获取到的就是元素，childNodes获得的就是包含空白的Text的节点</p>
-            <p>元素(Element)和结点(Node)的区别，元素是一个小范围的定义，必须是含有完整信息的结点才是一个元素，例如&lt;div&gt;…&lt;/div&gt;。但是一个结点不一定是一个元素，而一个元素一定是一个结点。</p>
-            <p style="color: red;">一个需要注意的地方就是，HTML文档两个标签之间的空白也是这棵树的一个节点（Text节点）。 &lt;a&gt; &lt;b&gt;&lt;/b&gt; &lt;a&gt; 中a有三个节点text, b , text</p>
-            <img src="./assets/imgs/elements_fun1.jpg" alt="">
-            <img src="./assets/imgs/elements_fun2.jpg" alt="">
-            <img src="./assets/imgs/elements_fun3.jpg" alt="">
-            <!-- </article> -->
+            <h1>面试问题集合</h1>
+            <!-- ？页面布局方式 -->
+            <div class="display-qeus">
+                <h2>？页面布局方式</h2>
+                <img class="display" src="./assets/imgs/display.png" alt="">
+                <h3>flex grid 布局</h3>
+                <div class="grid-container">
+                    <div class="header ">header</div>
+                    <div class="content ">content</div>
+                    <div class="sidebar ">sidebar</div>
+                    <div class="footer ">footer</div>
+                </div>
+            </div>
+            <!-- ？浏览器加载页面的原理，怎样渲染dom -->
+            <div class="browser-ques">
+                <h2>？浏览器加载页面的原理，怎样渲染dom</h2>
+                <p>从耗时的角度，浏览器请求、加载、渲染一个页面，时间花在下面<a href="http://link.zhihu.com/?target=https%3A//developers.google.com/speed/docs/insights/mobile" class=" wrap external" target="_blank" rel="nofollow noopener noreferrer">五件事情<i class="icon-external"></i></a>上：</p>
+                <ol>
+                    <li>DNS 查询：域名分析，打开相应站点</li>
+                    <li>TCP 连接：三次握手</li>
+                    <li>HTTP 请求即响应：包含请求头，请求方法，请求地址等等</li>
+                    <li>服务器响应：得到response</li>
+                    <li>客户端渲染：开始渲染
+                        <ol>
+                            <li>处理 HTML 标记并构建 DOM 树。</li>
+                            <li>处理 CSS 标记并构建 CSSOM 树。</li>
+                            <li>将 DOM 与 CSSOM 合并成一个渲染树。</li>
+                            <li>根据渲染树来布局，以计算每个节点的几何信息。</li>
+                            <li>将各个节点绘制到屏幕上。</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p>HTML解析器解析的过程中如果发现脚本，就会发生阻塞渲染现象（不是停住不动，而是继续预加载），停止渲染知道JS执行完毕；解析过程中发现存在css资源时，也会发生阻塞，渲染暂停，直至CSSOM构建完毕；css的优先级比js高，就是等CSSOM构建完毕JS继续执行；当然JS有defer延迟,async异步</p>
+                <a href="https://juejin.im/entry/59e1d31f51882578c3411c77">可查看这个相关文档，查看更详细的介绍</a>
+            </div>
+            <!-- ？浏览器的缓存，性能优化 -->
+            <div class="browser-cache">
+                <h2>？浏览器的缓存，性能优化</h2>
+            </div>
+            <!-- ？最新的 Web 开发标准，标准化，可用性 -->
+            <div class="latest-web-standard">
+                <h2>？最新的 Web 开发标准，标准化，可用性</h2>
+            </div>
+            <!-- ？浏览器的兼容性 -->
+            <div class="browser-compatibility">
+                <h2>？浏览器的兼容性</h2>
+            </div>
+            <!-- ？js原型链，判断变量是否是function -->
+            <div class="js-prototype">
+                <h2>？js原型链，浅拷贝深拷贝，判断变量是否是function</h2>
+            </div>
+            <!-- ？数据可视化工具 -->
+            <div class="data-visibility">
+                <h2>？数据可视化工具</h2>
+            </div>
+            <!-- ？跨域的原理 同源性 -->
+            <div class="cross-domain">
+                <h2>？跨域的原理 同源性</h2>
+            </div>
+            <!-- webpack的项目构建 -->
+            <div class="webpack-build">
+                <h2>webpack的项目构建</h2>
+            </div>
         </div>
         <div class="right">
 
@@ -77,5 +181,8 @@
 <footer>
     <p>邮箱：maoxiang@163.com</p>
 </footer>
+<script>
+    console.log('js应该放在文档的底部去引入，减少HTML渲染时的阻塞情况')
+</script>
 
 </html>
