@@ -3,50 +3,12 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="./index.css">
-    <style>
-        .display {
-            width: 100%;
-            height: 100%;
-        }
-        
-        .display-qeus .grid-container {
-            text-align: center;
-            padding: 20px;
-            display: grid;
-            grid-column-gap: 5px;
-            grid-row-gap: 5px;
-            background: pink;
-            grid-template-areas: "header header header header header" "sidebar content content content content" "footer footer footer footer footer";
-            grid-template-rows: 50px 150px 50px;
-            grid-template-columns: 200px 200px 200px;
-        }
-        
-        .display-qeus .header {
-            grid-area: header;
-            background: #fff
-        }
-        
-        .display-qeus .content {
-            grid-area: content;
-            background: #fffa90
-        }
-        
-        .display-qeus .sidebar {
-            grid-area: sidebar;
-            background: #5bc0de
-        }
-        
-        .display-qeus .footer {
-            grid-area: footer;
-            background: #ffff00
-        }
-    </style>
 </head>
 
 <body>
     <header>
         <p class="name">Amanda</p>
-        <image src="" class="" />
+        <!-- <image src="" class="" /> -->
     </header>
     <div class="content">
         <div class="left">
@@ -109,7 +71,7 @@
                     <img src="./assets/imgs/elements_fun3.jpg" alt="">
                 </div>
             </div>
-            <h1>面试问题集合</h1>
+            <h1>前端面试难点集合</h1>
             <!-- ？页面布局方式 -->
             <div class="display-qeus">
                 <h2>？页面布局方式</h2>
@@ -142,7 +104,7 @@
                     </li>
                 </ol>
                 <p>HTML解析器解析的过程中如果发现脚本，就会发生阻塞渲染现象（不是停住不动，而是继续预加载），停止渲染知道JS执行完毕；解析过程中发现存在css资源时，也会发生阻塞，渲染暂停，直至CSSOM构建完毕；css的优先级比js高，就是等CSSOM构建完毕JS继续执行；当然JS有defer延迟,async异步</p>
-                <a href="https://juejin.im/entry/59e1d31f51882578c3411c77">可查看这个相关文档，查看更详细的介绍</a>
+                <a href="https://juejin.im/entry/59e1d31f51882578c3411c77">可查看这个相关文档，查看更详细的渲染dom介绍</a>
             </div>
             <!-- ？浏览器的缓存，性能优化 -->
             <div class="browser-cache">
@@ -170,7 +132,7 @@
             </div>
             <!-- webpack的项目构建 -->
             <div class="webpack-build">
-                <h2>webpack的项目构建</h2>
+                <h2>？webpack的项目构建</h2>
             </div>
         </div>
         <div class="right">
