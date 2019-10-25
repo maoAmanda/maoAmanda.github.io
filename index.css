@@ -1,0 +1,18 @@
+.index {
+  background: #f0f0f0;
+}
+header {
+  background: #455758;
+  min-height: 60px;
+  width: 100%;
+}
+.name {
+  text-align: right;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 15px;
+}
+.img {
+  width: 100%;
+  
+}
