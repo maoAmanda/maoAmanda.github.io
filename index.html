@@ -8,6 +8,7 @@
 <body>
     <header>
         <p class="name">Amanda</p>
+        <p class="label">学习从来不嫌晚，加油，你肯定是最棒的那一个！trust yourself！</p>
         <!-- <image src="" class="" /> -->
     </header>
     <div class="content">
@@ -75,9 +76,38 @@
             <!-- ？页面布局方式 -->
             <div class="display-qeus">
                 <h2>？页面布局方式</h2>
+                <h2>盒子模型</h2>
+                <h3>盒模型分为W3C标准盒模型和IE盒模型</h3>
+
+                <a href="https://juejin.im/post/59ef72f5f265da4320026f76">盒模型讲解</a>
                 <img class="display" src="./assets/imgs/display.png" alt="">
-                <h3>flex grid 布局</h3>
+                <div>
+                    <h3>圣杯布局</h3>
+                    <div class="wrap">
+                        <div class="center">中间自适应</div>
+                        <div class="left">左边栏</div>
+                        <div class="right">右边栏</div>
+                    </div>
+
+                    <h3>双飞翼布局</h3>
+                    <div class="wrap-two">
+                        <div class="center-two">
+                            <div class="center-two-inner">中间自适应</div>
+                        </div>
+                        <div class="left-two">左边栏</div>
+                        <div class="right-two">右边栏</div>
+                    </div>
+
+                    <h2>浮动布局</h2>
+                    <div class="wrap-three">
+                        <div class="left-three">左边栏</div>
+                        <div class="right-three">右边栏</div>
+                        <div class="center-three">中间自适应</div>
+                    </div>
+                </div>
+
                 <div class="grid-container">
+                    <h3>flex grid 布局</h3>
                     <div class="header ">header</div>
                     <div class="content ">content</div>
                     <div class="sidebar ">sidebar</div>
@@ -106,9 +136,119 @@
                 <p>HTML解析器解析的过程中如果发现脚本，就会发生阻塞渲染现象（不是停住不动，而是继续预加载），停止渲染知道JS执行完毕；解析过程中发现存在css资源时，也会发生阻塞，渲染暂停，直至CSSOM构建完毕；css的优先级比js高，就是等CSSOM构建完毕JS继续执行；当然JS有defer延迟,async异步</p>
                 <a href="https://juejin.im/entry/59e1d31f51882578c3411c77">可查看这个相关文档，查看更详细的渲染dom介绍</a>
             </div>
+            <div class="http-request">
+                <h2>？HTTP请求过程</h2>
+                <p>HTTP协议就是基于TCP/IP协议模型来传输信息的。</p>
+                <p>通俗来讲，他就是计算机通过网络进行通信的规则，是一个基于请求与响应，无状态的，应用层的协议，常基于TCP/IP协议传输数据。</p>
+                <img src="./assets/imgs/http.jpg" alt="">
+                <article>
+                    TCP/IP网络传输协议包含四层协议系统：链路层，网络层，传输层，应用层。<br> 链路层：通常包括操作系统中的设备驱动程序和计算机中对应的网络接口卡。<br> 网络层：处理分组在网络中的活动，包含IP、ICMP、IGMP协议。<br> 传输层：为两台主机上的应用程序提供端到端的通信。TCP采用了超时重传、发送和接收端到端的确认分组等机制。<br> 应用层：决定了向用户提供应用服务时通信的活动，http协议，HTTP客户机发起一个与服务器的TCP连接， 一旦连接建立，浏览器（客户机）和服务器进程就可以通过套接字接口访问TCP(网络套接字是IP地址与端口的组合)
+                </article>
+                <img src="./assets/imgs/tcp_connect.jpg" alt="">
+                <h3>http请求报文</h3>
+                <p>一个HTTP请求报文由请求行（request line）、请求头部（header）、空行和请求数据4个部分组成</p>
+                <ol>
+                    <li>
+                        <p><strong>请求行（request line）</strong> </p>
+                        <ol>
+                            <li>请求方法</li>
+                            <ul>
+                                <li><strong>GET</strong></li>
+                                <li><strong>POST</strong></li>
+                                <li><strong>PUT</strong></li>
+                                <li><strong>DELETE</strong></li>
+                                <li>PATCH</li>
+                                <li>HEAD</li>
+                                <li>OPTIONS</li>
+                                <li>TRACE</li>
+                            </ul>
+                            <li>
+                                <p>请求地址</p>
+                                <p>URL:统一资源定位符</p>
+                                <p>组成：
+                                    <协议>：//
+                                        <主机>：
+                                            <端口>/
+                                                <路径>
+                                </p>
+                            </li>
+                            <li>
+                                <p>协议版本</p>
+                                <p>HTTP/主版本号.次版本号，常用的有HTTP/1.0,HTTP/1.1和HTTP2.0</p>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <p><strong>请求头部（header）</strong></p>
+                        <p>请求头部为请求报文添加了一些附加信息，由“名/值”对组成，每行一对，名和值之间使用冒号分隔。</p>
+                    </li>
+                    <li>
+                        <p><strong>空行</strong></p>
+                        <p>请求头部的最后会有一个空行，表示请求头部结束，接下来为请求数据，这一行非常重要，必不可少。</p>
+                    </li>
+                    <li>
+                        <p><strong>请求数据</strong></p>
+                        <p>下面是post请求，get请求没有请求数据。</p>
+                        <blockquote>POST 　/index.php　HTTP/1.1 　　 请求行<br>Host: localhost<br>User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2　　请求头<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,<i>/</i>;q=0.8<br>Accept-Language:
+                            zh-cn,zh;q=0.5
+                            <br>Accept-Encoding: gzip, deflate<br>Connection: keep-alive<br>Referer:
+                            <a href="https://link.zhihu.com/?target=http%3A//localhost/" class=" external" target="_blank" rel="nofollow noreferrer" data-za-detail-view-id="1043"><span class="invisible">http://</span><span class="visible">localhost/</span><span class="invisible"></span></a><br>Content-Length：25<br>Content-Type：application/x-www-form-urlencoded<br>　　空行<br>username=aa&amp;password=1234　　请求数据
+                        </blockquote>
+                    </li>
+                </ol>
+                <h3>http响应报文</h3>
+                <p>HTTP响应报文主要由状态行、响应头部、空行以及响应数据四个部分组成。</p>
+                <ol>
+                    <li>
+                        <p><strong>状态行</strong></p>
+                        <ul>
+                            <li>协议版本：于请求报文一致</li>
+                            <li>
+                                状态码：分为3位数字
+                                <ul>
+                                    <li>1xx：指示信息--表示请求已接收，继续处理</li>
+                                    <li>2xx：成功--表示请求已被成功接收、理解、接受</li>
+                                    <li>3xx：重定向--要完成请求必须进行更进一步的操作</li>
+                                    <li>4xx：客户端错误--请求有语法错误或请求无法实现</li>
+                                    <li>5xx：服务器端错误--服务器未能实现合法的请求</li>
+                                </ul>
+                                <img src="./assets/imgs/http_code.jpg" alt="">
+                            </li>
+                            <li>状态码描述：对状态码的描述</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p><strong>响应头部</strong></p>
+                        <p>与请求头部类似，为响应报文添加了一些附加信息</p>
+                    </li>
+                    <li>
+                        <p><strong>空行</strong></p>
+                    </li>
+                    <li>
+                        <p><strong>响应数据</strong></p>
+                        <p>下面是一个响应报文的实例：</p>
+                        <blockquote>HTTP/1.1 200 OK　　状态行<br>Date: Sun, 17 Mar 2017 08:12:54 GMT　　响应头部<br>Server: Apache/2.2.8 (Win32) PHP/5.2.5<br>X-Powered-By: PHP/5.2.5<br>Set-Cookie: PHPSESSID=c0huq7pdkmm5gg6osoe3mgjmm3; path=/<br>Expires: Thu, 19 Nov 1981 08:52:00
+                            GMT
+                            <br>Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0<br>Pragma: no-cache<br>Content-Length: 4393<br>Keep-Alive: timeout=5, max=100<br>Connection: Keep-Alive<br>Content-Type: text/html; charset=utf-8<br>　　空行<br>&lt;html&gt;　　响应数据<br>&lt;head&gt;<br>&lt;title&gt;HTTP响应示例&lt;title&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>Hello
+                            HTTP!
+                            <br>&lt;/body&gt;<br>&lt;/html&gt;</blockquote>
+                    </li>
+                </ol>
+                <div>
+                    <h3>TCP四次挥手，断开连接</h3>
+                    <p>当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的啊。那对于TCP的断开连接，这里就有了神秘的“四次分手”。</p>
+                    <p>TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。<br/>TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；<br/>但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；<br/>当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。</p>
+                    <img src="./assets/imgs/tcp_disconnect.jpg" alt="">
+                </div>
+            </div>
+            <!-- ？跨域的原理 同源性 -->
+            <div class="cross-domain">
+                <h2>？跨域的原理 同源性</h2>
+            </div>
             <!-- ？浏览器的缓存，性能优化 -->
             <div class="browser-cache">
                 <h2>？浏览器的缓存，性能优化</h2>
+                cache，manifest缓存，manifest文件需要在web服务器上面配置好，用来保证这些资源在任何情况下都能获得。
             </div>
             <!-- ？最新的 Web 开发标准，标准化，可用性 -->
             <div class="latest-web-standard">
@@ -118,6 +258,27 @@
             <div class="browser-compatibility">
                 <h2>？浏览器的兼容性</h2>
             </div>
+            <div class="h5-new-element">
+                <h2>H5主要新增元素</h2>
+                <ul>
+                    <li>用于绘画的 canvas 元素</li>
+                    <li>用于媒介回放的 video 和 audio 元素</li>
+                    <li>对本地离线存储的更好的支持</li>
+                    <li>新的特殊内容元素，比如 article、footer、header、nav、section</li>
+                    <li>新的表单控件，比如 calendar、date、time、email、url、search</li>
+                </ul>
+            </div>
+            <div class="css3-new">
+                <h2>CSS3主要新特性</h2>
+                <ul>
+                    <li>动画</li>
+                    <li>背景渐变</li>
+                    <li>2D、3D转换</li>
+                    <li>图片效果</li>
+                    <li>盒模型</li>
+                    <li>多列</li>
+                </ul>
+            </div>
             <!-- ？js原型链，判断变量是否是function -->
             <div class="js-prototype">
                 <h2>？js原型链，浅拷贝深拷贝，判断变量是否是function</h2>
@@ -125,10 +286,6 @@
             <!-- ？数据可视化工具 -->
             <div class="data-visibility">
                 <h2>？数据可视化工具</h2>
-            </div>
-            <!-- ？跨域的原理 同源性 -->
-            <div class="cross-domain">
-                <h2>？跨域的原理 同源性</h2>
             </div>
             <!-- webpack的项目构建 -->
             <div class="webpack-build">
