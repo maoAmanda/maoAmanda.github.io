@@ -1,3 +1,8 @@
+/* * {
+    margin: 0;
+    padding: 0;
+} */
+
 p {
     padding: 5px;
 }
@@ -175,3 +180,14 @@ header {
     grid-area: footer;
     background: #ffff00
 }
+
+.display-ques .standard-box {
+    width: 100px;
+    height: 100px;
+    border: 10px solid green;
+    background: black;
+    padding: 10px;
+    margin: 10px;
+}
+
+.display-ques .weird-box {}

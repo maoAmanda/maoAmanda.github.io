@@ -82,6 +82,16 @@
                     <h2>？页面布局方式</h2>
                     <h2>盒子模型</h2>
                     <h3>盒模型分为W3C标准盒模型和IE盒模型</h3>
+                    <div class="standard-box" style=""></div>
+                    <div class="weird-box" style="width: 100px;height: 100px;border: 10px solid green;background: red;padding: 10px;margin: 10px; box-sizing: border-box;"></div>
+                    <p><b>box-sizing: content-box(标准盒模型)（默认）</b></p>
+                    <p>
+                        width = 内容的宽度 + border + padding = 100 + 10 * 2 + 10 * 2 = 140<br/> height = 内容的高度 + border + padding100 + 10 * 2 + 10 * 2 = 140
+                    </p>
+                    <p><b>box-sizing: border-box(IE盒模型)</b></p>
+                    <p>
+                        width = 内容的宽度 = 100<br/> height = 内容的高度 = 100
+                    </p>
                     <a href="https://juejin.im/post/59ef72f5f265da4320026f76">盒模型讲解</a>
                     <img class="display" src="./assets/imgs/display.png" alt="">
                     <div>
@@ -126,7 +136,7 @@
                         <li>TCP 连接：三次握手</li>
                         <li>HTTP 请求即响应：包含请求头，请求方法，请求地址等等</li>
                         <li>服务器响应：得到response</li>
-                        <li>客户端渲染：开始渲染
+                        <li>客户端渲染：浏览器开始渲染（浏览器渲染原理）
                             <ol>
                                 <li>处理 HTML 标记并构建 DOM 树。</li>
                                 <li>处理 CSS 标记并构建 CSSOM 树。</li>
@@ -136,8 +146,60 @@
                             </ol>
                         </li>
                     </ol>
-                    <p>HTML解析器解析的过程中如果发现脚本，就会发生阻塞渲染现象（不是停住不动，而是继续预加载），停止渲染直到JS执行完毕；解析过程中发现存在css资源时，也会发生阻塞，渲染暂停，直至CSSOM构建完毕；css的优先级比js高，就是等CSSOM构建完毕JS继续执行；当然JS有defer延迟,async异步</p>
+                    <p>HTML解析器解析的过程中如果发现脚本，就会发生阻塞渲染现象（不是停住不动，而是继续预加载），停止渲染直到JS执行完毕；<br/> 解析过程中发现存在css资源时，也会发生阻塞，渲染暂停，直至CSSOM构建完毕；css的优先级比js高，就是等CSSOM构建完毕JS继续执行；当然JS有defer延迟,async异步
+                    </p>
+                    <p>解析完成后，浏览器引擎会通过DOM Tree和CSS Rule 来构造Rending Tree，然后计算每个节点信息，进行layout，最后通过调用操作系统Native GUI的API绘制出来。</p>
+                    <p>回流：当我们对 DOM 的修改引发了 DOM 几何尺寸的变化， 浏览器需要重新计算元素的几何属性（宽，高等），然后再将计算的结果绘制出来，这个过程就是回流（也叫重排）</p>
+                    <p>重绘：当我们对 DOM 的修改导致了样式的变化、却并未影响其几何属性时，浏览器不需重新计算元素的几何属性、直接为该元素绘制新的样式。</p>
+                    <p>有回流肯定有重绘，那么回流所需的成本就比较高，引起的原因可能有如下几点：
+                        <ul>
+                            <li>添加或删除课件的DOM元素</li>
+                            <li>元素尺寸改变</li>
+                            <li>内容变化</li>
+                            <li>浏览器窗口尺寸改变</li>
+                            <li>计算 offsetWidth 和 offsetHeight 属性</li>
+                            <li>设置 style 属性的值</li>
+                        </ul>
+                    </p>
+                    <p>?怎样避免重绘和回流
+                        <ul>
+                            <li>使用transform替代top</li>
+                            <li>使用visibility替代display:none</li>
+                            <li>尽量不要使用table布局</li>
+                            <li>css从右到左的匹配查找，避免层级过多</li>
+                        </ul>
+                    </p>
                     <a href="https://juejin.im/entry/59e1d31f51882578c3411c77">可查看这个相关文档，查看更详细的渲染dom介绍</a>
+                    <a href="https://www.infoq.cn/article/DltDuLToZIk_ZRqfb4jG">浏览器渲染原理</a>
+                </div>
+                <div>
+                    <h2>？浏览器性能优化</h2>
+                    <ul>
+                        <li>JS 优化： &lt;script&gt; 标签加上 defer 属性 和 async 属性 用于在不阻塞页面文档解析的前提下，控制脚本的下载和执行</li>
+                        <li>defer 属性： 用于开启新的线程下载脚本文件，并使脚本在文档解析完成后执行</li>
+                        <li>async 属性： HTML5 新增属性，用于异步下载脚本文件，下载完毕立即解释执行代码</li>
+                        <li>CSS 优化： &lt;link&gt; 标签的 rel 属性 中的属性值设置为 preload 能够让你在你的 HTML 页面中可以指明哪些资源是在页面加载完成后即刻需要的，最优的配置加载顺序，提高渲染性能</li>
+                        <li>减少http资源的请求，或者合并资源，这可能也是打包工具的运用到的一点</li>
+                        <li>合并图片：这也是雪碧图运用的一点</li>
+                        <li>http缓存：cache manifest文件缓存</li>
+                        <li>cookie,LocalStorage, SessionStorage存储</li>
+                        <li>代码压缩</li>
+                        <li>图片懒加载，只加载首屏，滚动的时候再继续加载后续图片</li>
+                    </ul>
+                </div>
+                <!-- ？浏览器的缓存 -->
+                <!-- <div class="browser-cache">
+                    <h2>？浏览器的缓存</h2>
+                    cache，manifest缓存，manifest文件需要在web服务器上面配置好，用来保证这些资源在任何情况下都能获得。
+                </div> -->
+                <!-- ？最新的 Web 开发标准，标准化，可用性 -->
+                <div class="latest-web-standard">
+                    <h2>？最新的 Web 开发标准，标准化，可用性</h2>
+                </div>
+                <!-- ？浏览器的兼容性 -->
+                <div class="browser-compatibility">
+                    <h2>？浏览器的兼容性</h2>
+                    -o-transform:rotate(7deg); // Opera <br/>-ms-transform:rotate(7deg); // IE<br/>-moz-transform:rotate(7deg); // Firefox <br/>-webkit-transform:rotate(7deg); // Chrome <br/>transform:rotate(7deg); // 统一标识语句
                 </div>
                 <div class="http-request">
                     <h2>？HTTP请求过程</h2>
@@ -279,21 +341,14 @@
                         如何阻止跨域：使用CSRF阻止跨域访问。资源不要采用上述可嵌入的方式
                     </p>
                 </div>
-                <!-- ？浏览器的缓存，性能优化 -->
-                <div class="browser-cache">
-                    <h2>？浏览器的缓存，性能优化</h2>
-                    cache，manifest缓存，manifest文件需要在web服务器上面配置好，用来保证这些资源在任何情况下都能获得。
-                </div>
-                <!-- ？最新的 Web 开发标准，标准化，可用性 -->
-                <div class="latest-web-standard">
-                    <h2>？最新的 Web 开发标准，标准化，可用性</h2>
-                </div>
-                <!-- ？浏览器的兼容性 -->
-                <div class="browser-compatibility">
-                    <h2>？浏览器的兼容性</h2>
+
+                <div>
+                    <h2>?webview的原理</h2>
+                    <p>webview就是用来显示页面的一个特殊view，多用于移动端，移动端目前都内置有webkit或者其他内核的浏览器，可直接显示H5页面；</p>
+                    <p>原生和H5交互的话一般依赖webview，webview通过loadUrl形式显示页面，定义一些方法绑定到global，H5通过window.xxxfun()方式去调用</p>
                 </div>
                 <div class="h5-new-element">
-                    <h2>H5主要新增元素</h2>
+                    <h2>?H5主要新增元素</h2>
                     <ul>
                         <li>用于绘画的 canvas 元素</li>
                         <li>用于媒介回放的 video 和 audio 元素</li>
@@ -303,7 +358,7 @@
                     </ul>
                 </div>
                 <div class="css3-new">
-                    <h2>CSS3主要新特性</h2>
+                    <h2>?CSS3主要新特性</h2>
                     <ul>
                         <li>动画</li>
                         <li>背景渐变</li>
@@ -313,8 +368,11 @@
                         <li>多列</li>
                     </ul>
                 </div>
+                <div>
+                    <h2>？overflow：hidden为什么可以清除浮动</h2>
+                </div>
                 <div class="promise-async-await">
-                    <h2>Promise</h2>
+                    <h2>?Promise</h2>
                     <p>
                         promise是异步编程的一种解决方案。替代原生的各种回调函数和事件。
                         <br /> promise有三种状态，pending（进行中），fulfilled（成功），rejected（失败）；
@@ -328,7 +386,7 @@
                         <br />Promise.resolve() 有时候需要将现有对象转为Promise对象，状态为resolved,将传入的参数可以是promise也可以是含有then的对象，还可以不带任何参数等等。执行then方法
                         <br />Promise.reject() 返回一个新的Promise的对象，状态为rejected.参数和resolve一样，但是如果是thenable的话会直接将thenable返回，而不是执行then方法。
                     </p>
-                    <h2>async await</h2>
+                    <h2>？async await</h2>
                     <p>async 是Generator函数的语法糖，表示这里有异步操作，需要结合await，告知紧跟后面的表达式这里需要等待结果</p>
                     <p>async函数返回一个Promise对象，那就可以then()，按照上面promise的流程走</p>
                     <p>await命令后面是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值 </p>
@@ -336,14 +394,49 @@
                 <!-- ？js原型链，判断变量是否是function -->
                 <div class="js-prototype">
                     <h2>？js原型链，浅拷贝深拷贝，判断变量是否是function</h2>
+                    <h3>深拷贝，浅拷贝</h3>
+                    <p>js中的两种变量类型，即值类型（数值、布尔值、null、undefined）和引用类型（对象、数组、函数）。深拷贝和浅拷贝只针对引用类型(函数是按照值传递的)。</p>
+                    <ul>
+                        <li>基本数据类型的特点：直接存储在栈(stack)中的数据</li>
+                        <li>引用数据类型的特点：<strong>存储的是该对象在栈中的引用，真实的数据存放在堆内存里</strong></li>
+                    </ul>
+                    <p>浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存。但深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。</p>
+                    <p>赋值操作会导致两个变量联动，一个改变另外一个跟着改变，赋值操作是直接将原始对象在栈中的地址赋过去了；浅拷贝是按位拷贝对象，创建一个新的对象。</p>
+                    <p>
+                        深拷贝方式：
+                        <ul>
+                            <li>JSON.parse(JSON.stringify(obj))变成按值传递：缺点是会忽略undefined或者function</li>
+                            <li>递归创建一个新对象 遍历要拷贝的对象属性添加给新对象</li>
+                            <li>lodash库里面的deepClone</li>
+                        </ul>
+                    </p>
+                    <p>
+                        浅拷贝的方式：
+                        <ul>
+                            <li>通过{...}结构的方式</li>
+                            <li>Object.assign({},obj)</li>
+                            <li>Array.prototype.concat()这里给空参数</li>
+                            <li>Array.prototype.slice()这里给空参数</li>
+                        </ul>
+                    </p>
+                    <p>浅拷贝只解决了第一层的问题，如果接下来的值当中还有对象{}的话，改变第一层的值还是会影响原数据有问题，这时候需要深拷贝。</p>
+                    <p>
+                        <b>按值传递：</b>按值传递是针对简单类型的，值类型传递就是两个变量，毫无关系
+                    </p>
+                    <p><b>按址传递：</b>按址传递是针对引用类型，对象，数组。<br/>引用类型就是两个变量，但是内存地址是一个。<br/>引用类型等于复制指针。<br/></p>
+                    <img src="./assets/imgs/deep_clone.png" alt="">
                 </div>
                 <!-- ？数据可视化工具 -->
                 <div class="data-visibility">
                     <h2>？数据可视化工具</h2>
+                    Echarts, HighCharts，canvas
                 </div>
                 <!-- webpack的项目构建 -->
                 <div class="webpack-build">
                     <h2>？webpack的项目构建</h2>
+                </div>
+                <div>
+                    <h2>？Vue相关性能优化</h2>
                 </div>
             </div>
         </div>
