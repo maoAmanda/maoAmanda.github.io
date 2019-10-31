@@ -79,11 +79,10 @@
                 <h1>前端面试难点集合</h1>
                 <!-- ？页面布局方式 -->
                 <div class="display-ques">
-                    <h2>？页面布局方式</h2>
-                    <h2>盒子模型</h2>
+                    <h2>？盒子模型</h2>
                     <h3>盒模型分为W3C标准盒模型和IE盒模型</h3>
-                    <div class="standard-box" style=""></div>
-                    <div class="weird-box" style="width: 100px;height: 100px;border: 10px solid green;background: red;padding: 10px;margin: 10px; box-sizing: border-box;"></div>
+                    <div class="standard-box"></div>
+                    <div class="weird-box"></div>
                     <p><b>box-sizing: content-box(标准盒模型)（默认）</b></p>
                     <p>
                         width = 内容的宽度 + border + padding = 100 + 10 * 2 + 10 * 2 = 140<br/> height = 内容的高度 + border + padding100 + 10 * 2 + 10 * 2 = 140
@@ -93,7 +92,13 @@
                         width = 内容的宽度 = 100<br/> height = 内容的高度 = 100
                     </p>
                     <a href="https://juejin.im/post/59ef72f5f265da4320026f76">盒模型讲解</a>
+                    <h2>？页面布局方式</h2>
                     <img class="display" src="./assets/imgs/display.png" alt="">
+                    <p>
+                        table布局：是老的布局方式，现在用的少；<br/> float布局：浮动流灵活多变，会带来 “浮动高度塌陷”的问题（如果浮动元素的父元素没有设定高度，当其子元素浮动后，父元素就因为内部没有子元素撑起从而高度变为0），所以后续需要清除浮动等操作<br/> position布局：是定位流，需要计算每一个元素的位置。不过不会像float那样影响其他元素。
+                        <br/> flex布局：弹性布局，解决了float和position的问题，不过不兼容IE8以下
+                        <br/> grid布局：flex只能用作一维布局，grid可做二维布局
+                    </p>
                     <div>
                         <h3>圣杯布局</h3>
                         <div class="wrap">
@@ -111,20 +116,19 @@
                             <div class="right-two">右边栏</div>
                         </div>
 
-                        <h2>浮动布局</h2>
+                        <h3>浮动布局</h3>
                         <div class="wrap-three">
                             <div class="left-three">左边栏</div>
                             <div class="right-three">右边栏</div>
                             <div class="center-three">中间自适应</div>
                         </div>
-                    </div>
-
-                    <div class="grid-container">
                         <h3>flex grid 布局</h3>
-                        <div class="header ">header</div>
-                        <div class="content ">content</div>
-                        <div class="sidebar ">sidebar</div>
-                        <div class="footer ">footer</div>
+                        <div class="grid-container">
+                            <div class="header ">header</div>
+                            <div class="content ">content</div>
+                            <div class="sidebar ">sidebar</div>
+                            <div class="footer ">footer</div>
+                        </div>
                     </div>
                 </div>
                 <!-- ？浏览器加载页面的原理，怎样渲染dom -->
@@ -187,11 +191,11 @@
                         <li>图片懒加载，只加载首屏，滚动的时候再继续加载后续图片</li>
                     </ul>
                 </div>
-                <!-- ？浏览器的缓存 -->
-                <!-- <div class="browser-cache">
-                    <h2>？浏览器的缓存</h2>
-                    cache，manifest缓存，manifest文件需要在web服务器上面配置好，用来保证这些资源在任何情况下都能获得。
-                </div> -->
+                <!-- ？浏览器的存储 -->
+                <div class="browser-storage">
+                    <h2>？浏览器的存储</h2>
+                    <img src="./assets/imgs/storage.jpg" alt="">
+                </div>
                 <!-- ？最新的 Web 开发标准，标准化，可用性 -->
                 <div class="latest-web-standard">
                     <h2>？最新的 Web 开发标准，标准化，可用性</h2>
@@ -343,12 +347,12 @@
                 </div>
 
                 <div>
-                    <h2>?webview的原理</h2>
+                    <h2>？webview的原理</h2>
                     <p>webview就是用来显示页面的一个特殊view，多用于移动端，移动端目前都内置有webkit或者其他内核的浏览器，可直接显示H5页面；</p>
                     <p>原生和H5交互的话一般依赖webview，webview通过loadUrl形式显示页面，定义一些方法绑定到global，H5通过window.xxxfun()方式去调用</p>
                 </div>
                 <div class="h5-new-element">
-                    <h2>?H5主要新增元素</h2>
+                    <h2>？H5主要新增元素</h2>
                     <ul>
                         <li>用于绘画的 canvas 元素</li>
                         <li>用于媒介回放的 video 和 audio 元素</li>
@@ -358,7 +362,7 @@
                     </ul>
                 </div>
                 <div class="css3-new">
-                    <h2>?CSS3主要新特性</h2>
+                    <h2>？CSS3主要新特性</h2>
                     <ul>
                         <li>动画</li>
                         <li>背景渐变</li>
@@ -370,9 +374,10 @@
                 </div>
                 <div>
                     <h2>？overflow：hidden为什么可以清除浮动</h2>
+                    <p>overflow.hidden会触发BFC.BFC的意思是，我这个元素里面的子孙元素，不会影响外部元素的布局。<br/>所以从BFC的本意来说，必须给浮动元素撑出高度，使得后续的元素无法跟浮动元素共享同一水平位置，看上去就是 clear both 的效果了</p>
                 </div>
                 <div class="promise-async-await">
-                    <h2>?Promise</h2>
+                    <h2>？Promise</h2>
                     <p>
                         promise是异步编程的一种解决方案。替代原生的各种回调函数和事件。
                         <br /> promise有三种状态，pending（进行中），fulfilled（成功），rejected（失败）；
@@ -390,6 +395,10 @@
                     <p>async 是Generator函数的语法糖，表示这里有异步操作，需要结合await，告知紧跟后面的表达式这里需要等待结果</p>
                     <p>async函数返回一个Promise对象，那就可以then()，按照上面promise的流程走</p>
                     <p>await命令后面是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值 </p>
+                    <h2>fetch和axios，ajax的区别</h2>
+                    <p>fetch：全局量 window 的一个方法，用promise来处理结果；ajax是XMLHttpRequest请求，open，send，最后得到response， ajax.onreadystatechange=function (){}</p>
+                    <p>fetch不会主动传送cookie，需要配置属性credentials: ’same-origin'</p>
+                    <p>fetch比ajax更加方便</p>
                 </div>
                 <!-- ？js原型链，判断变量是否是function -->
                 <div class="js-prototype">
@@ -426,6 +435,11 @@
                     <p><b>按址传递：</b>按址传递是针对引用类型，对象，数组。<br/>引用类型就是两个变量，但是内存地址是一个。<br/>引用类型等于复制指针。<br/></p>
                     <img src="./assets/imgs/deep_clone.png" alt="">
                 </div>
+                <div>
+                    <h2>？匿名函数和闭包</h2>
+                    匿名函数就是没有函数名的函数，最灵活的对象，不会造成命名冲突。
+                    <img src="./assets/imgs/function.jpg" alt="">
+                </div>
                 <!-- ？数据可视化工具 -->
                 <div class="data-visibility">
                     <h2>？数据可视化工具</h2>
@@ -437,6 +451,9 @@
                 </div>
                 <div>
                     <h2>？Vue相关性能优化</h2>
+                </div>
+                <div>
+                    <h2>？ES6</h2>
                 </div>
             </div>
         </div>
