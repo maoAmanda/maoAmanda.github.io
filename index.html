@@ -175,6 +175,8 @@
                     </p>
                     <a href="https://juejin.im/entry/59e1d31f51882578c3411c77">可查看这个相关文档，查看更详细的渲染dom介绍</a>
                     <a href="https://www.infoq.cn/article/DltDuLToZIk_ZRqfb4jG">浏览器渲染原理</a>
+                    <h3>css权重问题</h3>
+                    <img src="./assets/imgs/css.png" alt="">
                 </div>
                 <div>
                     <h2>？浏览器性能优化</h2>
@@ -190,6 +192,8 @@
                         <li>代码压缩</li>
                         <li>图片懒加载，只加载首屏，滚动的时候再继续加载后续图片</li>
                     </ul>
+                    <h2>？浏览器性能监听</h2>
+
                 </div>
                 <!-- ？浏览器的存储 -->
                 <div class="browser-storage">
@@ -229,7 +233,7 @@
                                     <li><strong>DELETE</strong></li>
                                     <li>PATCH</li>
                                     <li>HEAD</li>
-                                    <li>OPTIONS</li>
+                                    <li>OPTIONS:预检请求，查看当前服务器支持哪些通信选项，预检请求报文中的 Access-Control-Request-Method 首部字段告知服务器实际请求所使用的 HTTP 方法；Access-Control-Request-Headers 首部字段告知服务器实际请求所携带的自定义首部字段</li>
                                     <li>TRACE</li>
                                 </ul>
                                 <li>
@@ -278,7 +282,7 @@
                                     <ul>
                                         <li>1xx：指示信息--表示请求已接收，继续处理</li>
                                         <li>2xx：成功--表示请求已被成功接收、理解、接受</li>
-                                        <li>3xx：重定向--要完成请求必须进行更进一步的操作</li>
+                                        <li>3xx：重定向--要完成请求必须进行更进一步的操作,301:强制缓存302：协商缓存</li>
                                         <li>4xx：客户端错误--请求有语法错误或请求无法实现</li>
                                         <li>5xx：服务器端错误--服务器未能实现合法的请求</li>
                                     </ul>
@@ -311,6 +315,12 @@
                         <img src="./assets/imgs/tcp_disconnect.jpg" alt="">
                     </div>
                 </div>
+                <div class="http-vs-https">
+                    <h2>http和https的区别</h2>
+                    <p>HTTP超文本传输协议是一种使用明文数据传输的网络协议，连接很简单，是无状态的；数据什么的都是可见的;端口是80</p>
+                    <p>HTTPS协议是对HTTP的一种升级，给数据进行了ssl加密处理;需要到ca申请证书；端口是443</p>
+                    <p>HTTPS服务端和客户端之间的所有通讯，都是加密的(RSA加密算法)，具体讲，是客户端产生一个对称的密钥，通过server 的ca证书来交换密钥，一般意义上的握手过程</p>
+                </div>
                 <!-- ？跨域的原理 同源性 -->
                 <div class="cross-domain">
                     <h2>？跨域的原理 同源性</h2>
@@ -333,6 +343,7 @@
                         如何允许跨域：
                         <br/>使用CORS允许跨域资源访问：CORS是一种机制，它使用额外的 HTTP 头来告诉浏览器，让运行在一个 origin (domain) 上的Web应用被准许访问来自不同源服务器上的指定的资源。
                         <br/>使用JsonP允许跨域资源访问：借助script标签，引入jsonp文件，通过callback的形式实现跨域，不过只支持get请求
+                        <br/>使用Nginx代理
                         <p>跨源脚本api访问使用window window.blur,window.close,window.focus,window.postMessage,window.location,window.opener,window.parent等
                         </p>
                         <p>跨源数据存储访问：Cookies
@@ -345,7 +356,13 @@
                         如何阻止跨域：使用CSRF阻止跨域访问。资源不要采用上述可嵌入的方式
                     </p>
                 </div>
-
+                <div class="url-src-href-rel">
+                    <h2>url src href rel有什么区别</h2>
+                    <p>url: 统一资源定位符,互联网访问资源用的标准， 类似于： 协议://用户名:密码@子域名.域名.顶级域名:端口号/目录/文件名.文件后缀?参数=值#标志</p>
+                    <p>src: 会将资源下载到本地，应用到项目中，例如脚本script或者img或者frame等；</p>
+                    <p>href: 超文本引用,是将资源和当前页面建立联系，可跳转页面，也可以执行JavaScript表达式、方法和函数的列表   </p>
+                    <p>rel: 用于定义链接的文件和HTML文档之间的关系，例如StyleSheet的意思就是样式调用</p>
+                </div>
                 <div>
                     <h2>？webview的原理</h2>
                     <p>webview就是用来显示页面的一个特殊view，多用于移动端，移动端目前都内置有webkit或者其他内核的浏览器，可直接显示H5页面；</p>
@@ -371,6 +388,8 @@
                         <li>盒模型</li>
                         <li>多列</li>
                     </ul>
+                    <h3>伪类:hover,:active等</h3>
+                    <h3>伪元素:before :after,:first-line ,:last-line</h3>
                 </div>
                 <div>
                     <h2>？overflow：hidden为什么可以清除浮动</h2>
@@ -434,26 +453,86 @@
                     </p>
                     <p><b>按址传递：</b>按址传递是针对引用类型，对象，数组。<br/>引用类型就是两个变量，但是内存地址是一个。<br/>引用类型等于复制指针。<br/></p>
                     <img src="./assets/imgs/deep_clone.png" alt="">
+                    <p>深拷贝实现原理：for in遍历对象属性，hasOwnProperty方式去添加到新的对象上</p>
                 </div>
                 <div>
                     <h2>？匿名函数和闭包</h2>
                     匿名函数就是没有函数名的函数，最灵活的对象，不会造成命名冲突。
                     <img src="./assets/imgs/function.jpg" alt="">
+                    闭包的好处就是保证作用域不会相互污染；
                 </div>
                 <!-- ？数据可视化工具 -->
                 <div class="data-visibility">
                     <h2>？数据可视化工具</h2>
                     Echarts, HighCharts，canvas
+                    <h3>生成一张图片</h3>
+                    <p>
+                            var image = new Image();<br/>
+                            var c = document.getElementById("myCanvas");<br/>
+                            var ctx = c.getContext("2d");<br/>
+                            var img = document.getElementById("scream");<br/>
+                            ctx.font = "10px Arial";<br/>
+                            
+                            function createImg(name, zuowei, color) {<br/>
+                                //  姓名<br/>
+                                ctx.fillText(name, 93, 373);<br/>
+                                ctx.fillText(name, 393, 370);<br/>
+                                //  座位号<br/>
+                                ctx.font = "bold 20px Arial";<br/>
+                                ctx.fillText(zuowei, 216, 350);<br/>
+                                ctx.fillText(zuowei, 393, 350);<br/>
+                                //  座位颜色<br/>
+                                ctx.font = "bold 20px Arial";<br/>
+                                ctx.fillText(color, 264, 350);<br/>
+                                ctx.fillText(color, 441, 350);<br/>
+                                //  生成图片<br/>
+                                image = c.toDataURL("image/png");<br/>
+                                return image;<br/>
+                            }<br/>
+                            
+                            ctx.drawImage(img, 0, 0, 550, 520);<br/>
+                            var src = createImg(name, zuowei, color);<br/>
+                            $('#box').attr('src', src);<br/>
+                    </p>
                 </div>
                 <!-- webpack的项目构建 -->
                 <div class="webpack-build">
                     <h2>？webpack的项目构建</h2>
+                    <p>按照路由ensure按需加载；</p>
+                    <p>各种loader编译，可选择某些文件不需要编译；</p>
+                    <p>tree shaking去除不需要的代码；</p>
+                    <p>各种插件支持：浏览器的支持等</p>
                 </div>
                 <div>
                     <h2>？Vue相关性能优化</h2>
+                    <h3>路由类型hash history 中pushState, replaceState两个方法</h3>
+                    <p>history中pushState方法和replaceState方法类似，pushState会在浏览器历史记录里面添加一项；replaceState则会直接修改本条目；与window.onpopstate相互合作。需要注意的是，调用 history.pushState() 或者 history.replaceState() 不会触发 popstate 事件。 opstate事件只会在浏览器某些行为下触发， 比如点击后退、前进按钮(或者在JavaScript中调用history.back()、history.forward()、history.go()方法)。</p>
+                    <p>pushState不会立即刷新页面，<br/>history.pushState({}, "");<br/> window.onpopstate = function(event) {
+                        //这里可以监听到浏览器的返回事件，并做你想做的事情，
+                        //例如：跳转到另一个网页
+                        location.href = "https://www.baidu.com";
+                    };</p>
                 </div>
                 <div>
                     <h2>？ES6</h2>
+                    <h3>数组合并</h3>
+                    <p>...解构</p>
+                    <p>concat连接</p>
+                    Array.from()和[].slice.call()均可以返回一个数组
+                </div>
+                <div>
+                    <h2>Event Loop</h2>
+                    <p>
+                        js执行机制分为宏任务和微任务，正常的同步代码是宏任务，js会将微任务或者异步任务放到另外一个异步任务栈里面，当宏任务执行结束，会从异步栈里面拿一个异步任务出来执行；<br/>
+                        宏任务包括setTimeout,setInterval,同步代码；微任务包括异步，promise等
+                    </p>
+                </div>
+                <div>
+                    <h2>垃圾回收机制</h2>
+                    <p>
+                        js的垃圾回收机制是依从“可达性”，当它发现一个对象的时候，会对这对象做一个标记，然后继续遍历，查看该对象是否有被其他对象引用，如果有，再将子对象标记，以此类推。<br/>
+                        当js发现有些对象没有被引用，也就是不可达之后就会销毁该对象。
+                    </p>
                 </div>
             </div>
         </div>
