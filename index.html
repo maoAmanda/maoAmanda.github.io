@@ -176,6 +176,9 @@
                     <a href="https://juejin.im/entry/59e1d31f51882578c3411c77">可查看这个相关文档，查看更详细的渲染dom介绍</a>
                     <a href="https://www.infoq.cn/article/DltDuLToZIk_ZRqfb4jG">浏览器渲染原理</a>
                     <h3>css权重问题</h3>
+                    <p>
+                        !important 无穷大； style内联样式 1000 ；id 100； class,[type=],伪类:hover等 10 ；标签div等，伪元素：after等 1； 通配符 0
+                    </p>
                     <img src="./assets/imgs/css.png" alt="">
                 </div>
                 <div>
@@ -193,7 +196,16 @@
                         <li>图片懒加载，只加载首屏，滚动的时候再继续加载后续图片</li>
                     </ul>
                     <h2>？浏览器性能监听</h2>
+                    <p>window.performance.timing</p>
+                    <h2>？什么是cookie</h2>
 
+                    <p>
+                        因为HTTP是一个无状态的协议，早期浏览器没办法区分当前用户，后来渐渐借助sessionID来区分，就是客户端都有自己的sessionID，可是这样对后台服务器的压力就特别大，因为它要记住所有人的sessionID，再后来发展成在前端保存经过加密令牌token，token里面包含了一些用户信息，token存在cookie里面，每次HTTP请求的时候把token通过header头带过去，这样服务器就能知道是谁了。
+                        <br/> cookie就是用来存储访问者计算机中的变量，以及身份标识sessionID，cookie 由名称，内容，作用路径，作用域，协议，生存周期，生存周期默认是-1，就是浏览器会话期间，关闭浏览器窗口，cookie消失；若设置了expires/max-age则表示有时间限制，。
+                    </p>
+                    <p>大家都知道，http是无状态的协议，客户每次读取web页面时，服务器都打开新的会话，而且服务器也不会自动维护客户的上下文信息，那么要怎么才能实现网上商店中的购物车呢，session就是一种保存上下文信息的机制，它是针对每一个用户的，变量的值保存在服务器端，通过SessionID来区分不同的客户,session是以cookie或URL重写为基础的，默认使用cookie来实现，系统会创造一个名为JSESSIONID的输出cookie，我们叫做session cookie,以区别persistent
+                        cookies,也就是我们通常所说的cookie,注意session cookie是存储于浏览器内存中的，并不是写到硬盘上的，这也就是我们刚才看到的JSESSIONID，我们通常情是看不到JSESSIONID的，但是当我们把浏览器的cookie禁止后，web服务器会采用URL重写的方式传递Sessionid，我们就可以在地址栏看到sessionid=KWJHUG6JJM65HS2K6之类的字符串。</p>
+                    <p>通常session cookie是不能跨窗口使用的，当你新开了一个浏览器窗口进入相同页面时，系统会赋予你一个新的sessionid，这样我们信息共享的目的就达不到了，此时我们可以先把sessionid保存在persistent cookie中，然后在新窗口中读出来，就可以得到上一个窗口SessionID了，这样通过session cookie和persistent cookie的结合我们就实现了跨窗口的session tracking（会话跟踪）。</p>
                 </div>
                 <!-- ？浏览器的存储 -->
                 <div class="browser-storage">
@@ -350,6 +362,9 @@
                             <br/>不管使用哪个协议（HTTP/HTTPS）或端口号，浏览器都允许给定的域以及其任何子域名(sub-domains) 访问 cookie。设置 cookie 时，你可以使用Domain，Path，Secure，和Http-Only标记来限定其访问性。读取 cookie 时，不会知晓它的出处。 即使您仅使用安全的https连接，您看到的任何cookie都可能使用不安全的连接进行设置。
                             <br/>使用cookie可做带身份凭证的接口请求Access-Control-Allow-Origin设为允许的域名，将cookie信息带入
                             <br/>只有cookie的domain和path与请求的URL匹配才会发送这个cookie
+                            <br/>cookie的过期时间设置问题：cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。 sessionStorage不在不同的浏览器窗口中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的 sessionStorage 只要同源的同窗口（或tab）中，刷新页面或进入同源的不同页面，数据始终存在。也就是说只要这个浏览器窗口没有关闭，加载新页面或重新加载，数据仍然存在。
+                            localStorage：始终有效，窗口或浏览器关闭也一直保存；
+                            <a href="https://www.geekjc.com/post/58e10a3867d6027b0d916752">cookie, session,storage</a>
                         </p>
                     </p>
                     <p>
@@ -360,7 +375,7 @@
                     <h2>url src href rel有什么区别</h2>
                     <p>url: 统一资源定位符,互联网访问资源用的标准， 类似于： 协议://用户名:密码@子域名.域名.顶级域名:端口号/目录/文件名.文件后缀?参数=值#标志</p>
                     <p>src: 会将资源下载到本地，应用到项目中，例如脚本script或者img或者frame等；</p>
-                    <p>href: 超文本引用,是将资源和当前页面建立联系，可跳转页面，也可以执行JavaScript表达式、方法和函数的列表   </p>
+                    <p>href: 超文本引用,是将资源和当前页面建立联系，可跳转页面，也可以执行JavaScript表达式、方法和函数的列表 </p>
                     <p>rel: 用于定义链接的文件和HTML文档之间的关系，例如StyleSheet的意思就是样式调用</p>
                 </div>
                 <div>
@@ -395,6 +410,31 @@
                     <h2>？overflow：hidden为什么可以清除浮动</h2>
                     <p>overflow.hidden会触发BFC.BFC的意思是，我这个元素里面的子孙元素，不会影响外部元素的布局。<br/>所以从BFC的本意来说，必须给浮动元素撑出高度，使得后续的元素无法跟浮动元素共享同一水平位置，看上去就是 clear both 的效果了</p>
                 </div>
+                <div>
+                    <h2>？seo怎么实现</h2>
+                    <p></p>
+                </div>
+                <div>
+                    <h2>？怎么实现localStorage超过1M自动清除</h2>
+                    需要封装下代码，保存的时候将当前时间一并保存到storage中
+                    <img src="./src/assets/imgs/localStorage.jpg" alt="">
+                </div>
+                <div>
+                    <h2>？img怎么实现根据屏幕自动切换图片</h2>
+                    <p>
+
+                    </p>
+                </div>
+                <div>
+                    <h2>？防抖及主要运用场景</h2>
+                    <p></p>
+                    <h2>？节流及主要运用场景</h2>
+                </div>
+                <div>
+                    <h2>？ajax 实现文件上传</h2>
+                    <h2>？formData的兼容性</h2>
+
+                </div>
                 <div class="promise-async-await">
                     <h2>？Promise</h2>
                     <p>
@@ -420,8 +460,13 @@
                     <p>fetch比ajax更加方便</p>
                 </div>
                 <!-- ？js原型链，判断变量是否是function -->
+                <!-- TODO 原型链-->
                 <div class="js-prototype">
                     <h2>？js原型链，浅拷贝深拷贝，判断变量是否是function</h2>
+                    <h3>原型链</h3>
+                    <p>
+                        两个类function通过原型继承了对方的方法，那么就形成了继承，同时也是原型链的形成。 原型prototype和--proto--和constructor的区别是：
+                    </p>
                     <h3>深拷贝，浅拷贝</h3>
                     <p>js中的两种变量类型，即值类型（数值、布尔值、null、undefined）和引用类型（对象、数组、函数）。深拷贝和浅拷贝只针对引用类型(函数是按照值传递的)。</p>
                     <ul>
@@ -458,8 +503,7 @@
                 <div>
                     <h2>？匿名函数和闭包</h2>
                     匿名函数就是没有函数名的函数，最灵活的对象，不会造成命名冲突。
-                    <img src="./assets/imgs/function.jpg" alt="">
-                    闭包的好处就是保证作用域不会相互污染；
+                    <img src="./assets/imgs/function.jpg" alt=""> 闭包的好处就是保证作用域不会相互污染；
                 </div>
                 <!-- ？数据可视化工具 -->
                 <div class="data-visibility">
@@ -467,32 +511,9 @@
                     Echarts, HighCharts，canvas
                     <h3>生成一张图片</h3>
                     <p>
-                            var image = new Image();<br/>
-                            var c = document.getElementById("myCanvas");<br/>
-                            var ctx = c.getContext("2d");<br/>
-                            var img = document.getElementById("scream");<br/>
-                            ctx.font = "10px Arial";<br/>
-                            
-                            function createImg(name, zuowei, color) {<br/>
-                                //  姓名<br/>
-                                ctx.fillText(name, 93, 373);<br/>
-                                ctx.fillText(name, 393, 370);<br/>
-                                //  座位号<br/>
-                                ctx.font = "bold 20px Arial";<br/>
-                                ctx.fillText(zuowei, 216, 350);<br/>
-                                ctx.fillText(zuowei, 393, 350);<br/>
-                                //  座位颜色<br/>
-                                ctx.font = "bold 20px Arial";<br/>
-                                ctx.fillText(color, 264, 350);<br/>
-                                ctx.fillText(color, 441, 350);<br/>
-                                //  生成图片<br/>
-                                image = c.toDataURL("image/png");<br/>
-                                return image;<br/>
-                            }<br/>
-                            
-                            ctx.drawImage(img, 0, 0, 550, 520);<br/>
-                            var src = createImg(name, zuowei, color);<br/>
-                            $('#box').attr('src', src);<br/>
+                        var image = new Image();<br/> var c = document.getElementById("myCanvas");<br/> var ctx = c.getContext("2d");<br/> var img = document.getElementById("scream");<br/> ctx.font = "10px Arial";<br/> function createImg(name, zuowei,
+                        color) {<br/> // 姓名<br/> ctx.fillText(name, 93, 373);<br/> ctx.fillText(name, 393, 370);<br/> // 座位号<br/> ctx.font = "bold 20px Arial";<br/> ctx.fillText(zuowei, 216, 350);<br/> ctx.fillText(zuowei, 393, 350);<br/> // 座位颜色<br/>                        ctx.font = "bold 20px Arial";<br/> ctx.fillText(color, 264, 350);<br/> ctx.fillText(color, 441, 350);<br/> // 生成图片<br/> image = c.toDataURL("image/png");<br/> return image;<br/> }
+                        <br/> ctx.drawImage(img, 0, 0, 550, 520);<br/> var src = createImg(name, zuowei, color);<br/> $('#box').attr('src', src);<br/>
                     </p>
                 </div>
                 <!-- webpack的项目构建 -->
@@ -507,11 +528,8 @@
                     <h2>？Vue相关性能优化</h2>
                     <h3>路由类型hash history 中pushState, replaceState两个方法</h3>
                     <p>history中pushState方法和replaceState方法类似，pushState会在浏览器历史记录里面添加一项；replaceState则会直接修改本条目；与window.onpopstate相互合作。需要注意的是，调用 history.pushState() 或者 history.replaceState() 不会触发 popstate 事件。 opstate事件只会在浏览器某些行为下触发， 比如点击后退、前进按钮(或者在JavaScript中调用history.back()、history.forward()、history.go()方法)。</p>
-                    <p>pushState不会立即刷新页面，<br/>history.pushState({}, "");<br/> window.onpopstate = function(event) {
-                        //这里可以监听到浏览器的返回事件，并做你想做的事情，
-                        //例如：跳转到另一个网页
-                        location.href = "https://www.baidu.com";
-                    };</p>
+                    <p>pushState不会立即刷新页面，<br/>history.pushState({}, "");<br/> window.onpopstate = function(event) { //这里可以监听到浏览器的返回事件，并做你想做的事情， //例如：跳转到另一个网页 location.href = "https://www.baidu.com"; };
+                    </p>
                 </div>
                 <div>
                     <h2>？ES6</h2>
@@ -523,15 +541,13 @@
                 <div>
                     <h2>Event Loop</h2>
                     <p>
-                        js执行机制分为宏任务和微任务，正常的同步代码是宏任务，js会将微任务或者异步任务放到另外一个异步任务栈里面，当宏任务执行结束，会从异步栈里面拿一个异步任务出来执行；<br/>
-                        宏任务包括setTimeout,setInterval,同步代码；微任务包括异步，promise等
+                        js执行机制分为宏任务和微任务，正常的同步代码是宏任务，js会将微任务或者异步任务放到另外一个异步任务栈里面，当宏任务执行结束，会从异步栈里面拿一个异步任务出来执行；<br/> 宏任务包括setTimeout,setInterval,同步代码；微任务包括异步，promise等
                     </p>
                 </div>
                 <div>
                     <h2>垃圾回收机制</h2>
                     <p>
-                        js的垃圾回收机制是依从“可达性”，当它发现一个对象的时候，会对这对象做一个标记，然后继续遍历，查看该对象是否有被其他对象引用，如果有，再将子对象标记，以此类推。<br/>
-                        当js发现有些对象没有被引用，也就是不可达之后就会销毁该对象。
+                        js的垃圾回收机制是依从“可达性”，当它发现一个对象的时候，会对这对象做一个标记，然后继续遍历，查看该对象是否有被其他对象引用，如果有，再将子对象标记，以此类推。<br/> 当js发现有些对象没有被引用，也就是不可达之后就会销毁该对象。
                     </p>
                 </div>
             </div>
@@ -540,6 +556,7 @@
 
         </div>
     </div>
+    <script src="./src/assets/js/storage.js"></script>
 </body>
 <footer>
     <p>邮箱：maoxiang@163.com</p>
