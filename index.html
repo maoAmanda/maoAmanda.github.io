@@ -467,8 +467,15 @@
                     <h2>？js原型链，浅拷贝深拷贝，判断变量是否是function</h2>
                     <h3>原型链</h3>
                     <p>
+                        js内部对象可以分为函数对象和普通对象，函数对象有内置的Function,Object,Array,String,Boolean,Number,以及利用function创建出来的对象xx function xx(){};
+                    </p>
+                    <p>
+                        函数对象都有prototype属性，该属性是一个对象，内部有constructor属性，该属性指向的是原函数对象，Function函数对象内的prototype没有constructor属性；
+                    </p>
+                    <p>
                         两个类function通过原型继承了对方的方法，那么就形成了继承，同时也是原型链的形成。 原型prototype和--proto--和constructor的区别是：
                     </p>
+                    <img src="./src/assets/imgs/proto.jpg" alt="">
                     <h3>深拷贝，浅拷贝</h3>
                     <p>js中的两种变量类型，即值类型（数值、布尔值、null、undefined）和引用类型（对象、数组、函数）。深拷贝和浅拷贝只针对引用类型(函数是按照值传递的)。</p>
                     <ul>
