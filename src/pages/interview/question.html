@@ -1,0 +1,497 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端面试难点集合</title>
+    <link rel="stylesheet" href="../../assets/css/interview.css">
+</head>
+
+<body>
+    <div id="interview">
+        <h1>前端面试难点集合</h1>
+        <!-- ？页面布局方式 -->
+        <div class="display-ques">
+            <h2>？盒子模型</h2>
+            <h3>盒模型分为W3C标准盒模型和IE盒模型</h3>
+            <div class="standard-box"></div>
+            <div class="weird-box"></div>
+            <p><b>box-sizing: content-box(标准盒模型)（默认）</b></p>
+            <p>
+                width = 内容的宽度 + border + padding = 100 + 10 * 2 + 10 * 2 = 140<br> height = 内容的高度 + border + padding100 + 10 * 2 + 10 * 2 = 140
+            </p>
+            <p><b>box-sizing: border-box(IE盒模型)</b></p>
+            <p>
+                width = 内容的宽度 = 100<br> height = 内容的高度 = 100
+            </p>
+            <a href="https://juejin.im/post/59ef72f5f265da4320026f76">盒模型讲解</a>
+            <h2>？页面布局方式</h2>
+            <img class="display-img" src="../../../src/assets/imgs/display.png" alt="">
+            <p>
+                table布局：是老的布局方式，现在用的少；<br> float布局：浮动流灵活多变，会带来 “浮动高度塌陷”的问题（如果浮动元素的父元素没有设定高度，当其子元素浮动后，父元素就因为内部没有子元素撑起从而高度变为0），所以后续需要清除浮动等操作<br> position布局：是定位流，需要计算每一个元素的位置。不过不会像float那样影响其他元素。
+                <br> flex布局：弹性布局，解决了float和position的问题，不过不兼容IE8以下
+                <br> grid布局：flex只能用作一维布局，grid可做二维布局
+            </p>
+            <div>
+                <h3>圣杯布局</h3>
+                <div class="wrap">
+                    <div class="center">中间自适应</div>
+                    <div class="left">左边栏</div>
+                    <div class="right">右边栏</div>
+                </div>
+
+                <h3>双飞翼布局</h3>
+                <div class="wrap-two">
+                    <div class="center-two">
+                        <div class="center-two-inner">中间自适应</div>
+                    </div>
+                    <div class="left-two">左边栏</div>
+                    <div class="right-two">右边栏</div>
+                </div>
+
+                <h3>浮动布局</h3>
+                <div class="wrap-three">
+                    <div class="left-three">左边栏</div>
+                    <div class="right-three">右边栏</div>
+                    <div class="center-three">中间自适应</div>
+                </div>
+                <h3>flex grid 布局</h3>
+                <div class="grid-container">
+                    <div class="header ">header</div>
+                    <div class="content ">content</div>
+                    <div class="sidebar ">sidebar</div>
+                    <div class="footer ">footer</div>
+                </div>
+            </div>
+        </div>
+        <!-- ？浏览器加载页面的原理，怎样渲染dom -->
+        <div class="browser-ques">
+            <h2>？浏览器加载页面的原理，怎样渲染dom</h2>
+            <p>从耗时的角度，浏览器请求、加载、渲染一个页面，时间花在下面<a href="http://link.zhihu.com/?target=https%3A//developers.google.com/speed/docs/insights/mobile" class=" wrap external" target="_blank" rel="nofollow noopener noreferrer">五件事情<i class="icon-external"></i></a>上：</p>
+            <ol>
+                <li>DNS 查询：域名分析，打开相应站点</li>
+                <li>TCP 连接：三次握手</li>
+                <li>HTTP 请求即响应：包含请求头，请求方法，请求地址等等</li>
+                <li>服务器响应：得到response</li>
+                <li>客户端渲染：浏览器开始渲染（浏览器渲染原理）
+                    <ol>
+                        <li>处理 HTML 标记并构建 DOM 树。</li>
+                        <li>处理 CSS 标记并构建 CSSOM 树。</li>
+                        <li>将 DOM 与 CSSOM 合并成一个渲染树。</li>
+                        <li>根据渲染树来布局，以计算每个节点的几何信息。</li>
+                        <li>将各个节点绘制到屏幕上。</li>
+                    </ol>
+                </li>
+            </ol>
+            <p>HTML解析器解析的过程中如果发现脚本，就会发生阻塞渲染现象（不是停住不动，而是继续预加载），停止渲染直到JS执行完毕；<br> 解析过程中发现存在css资源时，也会发生阻塞，渲染暂停，直至CSSOM构建完毕；css的优先级比js高，就是等CSSOM构建完毕JS继续执行；当然JS有defer延迟,async异步
+            </p>
+            <p>解析完成后，浏览器引擎会通过DOM Tree和CSS Rule 来构造Rending Tree，然后计算每个节点信息，进行layout，最后通过调用操作系统Native GUI的API绘制出来。</p>
+            <p>回流：当我们对 DOM 的修改引发了 DOM 几何尺寸的变化， 浏览器需要重新计算元素的几何属性（宽，高等），然后再将计算的结果绘制出来，这个过程就是回流（也叫重排）</p>
+            <p>重绘：当我们对 DOM 的修改导致了样式的变化、却并未影响其几何属性时，浏览器不需重新计算元素的几何属性、直接为该元素绘制新的样式。</p>
+            <p>有回流肯定有重绘，那么回流所需的成本就比较高，引起的原因可能有如下几点：
+                <ul>
+                    <li>添加或删除课件的DOM元素</li>
+                    <li>元素尺寸改变</li>
+                    <li>内容变化</li>
+                    <li>浏览器窗口尺寸改变</li>
+                    <li>计算 offsetWidth 和 offsetHeight 属性</li>
+                    <li>设置 style 属性的值</li>
+                </ul>
+            </p>
+            <p>?怎样避免重绘和回流
+                <ul>
+                    <li>使用transform替代top</li>
+                    <li>使用visibility替代display:none</li>
+                    <li>尽量不要使用table布局</li>
+                    <li>css从右到左的匹配查找，避免层级过多</li>
+                </ul>
+            </p>
+            <a href="https://juejin.im/entry/59e1d31f51882578c3411c77">可查看这个相关文档，查看更详细的渲染dom介绍</a>
+            <a href="https://www.infoq.cn/article/DltDuLToZIk_ZRqfb4jG">浏览器渲染原理</a>
+            <h3>css权重问题</h3>
+            <p>
+                !important 无穷大； style内联样式 1000 ；id 100； class,[type=],伪类:hover等 10 ；标签div等，伪元素：after等 1； 通配符 0
+            </p>
+            <img src="../../../src/assets/imgs/css.png" alt="">
+        </div>
+        <div>
+            <h2>？浏览器性能优化</h2>
+            <ul>
+                <li>JS 优化： &lt;script&gt; 标签加上 defer 属性 和 async 属性 用于在不阻塞页面文档解析的前提下，控制脚本的下载和执行</li>
+                <li>defer 属性： 用于开启新的线程下载脚本文件，并使脚本在文档解析完成后执行</li>
+                <li>async 属性： HTML5 新增属性，用于异步下载脚本文件，下载完毕立即解释执行代码</li>
+                <li>CSS 优化： &lt;link&gt; 标签的 rel 属性 中的属性值设置为 preload 能够让你在你的 HTML 页面中可以指明哪些资源是在页面加载完成后即刻需要的，最优的配置加载顺序，提高渲染性能</li>
+                <li>减少http资源的请求，或者合并资源，这可能也是打包工具的运用到的一点</li>
+                <li>合并图片：这也是雪碧图运用的一点</li>
+                <li>http缓存：cache manifest文件缓存</li>
+                <li>cookie,LocalStorage, SessionStorage存储</li>
+                <li>代码压缩</li>
+                <li>图片懒加载，只加载首屏，滚动的时候再继续加载后续图片</li>
+            </ul>
+            <h2>？浏览器性能监听</h2>
+            <p>window.performance.timing</p>
+            <h2>？什么是cookie</h2>
+
+            <p>
+                因为HTTP是一个无状态的协议，早期浏览器没办法区分当前用户，后来渐渐借助sessionID来区分，就是客户端都有自己的sessionID，可是这样对后台服务器的压力就特别大，因为它要记住所有人的sessionID，再后来发展成在前端保存经过加密令牌token，token里面包含了一些用户信息，token存在cookie里面，每次HTTP请求的时候把token通过header头带过去，这样服务器就能知道是谁了。
+                <br> cookie就是用来存储访问者计算机中的变量，以及身份标识sessionID，cookie 由名称，内容，作用路径，作用域，协议，生存周期，生存周期默认是-1，就是浏览器会话期间，关闭浏览器窗口，cookie消失；若设置了expires/max-age则表示有时间限制，。
+            </p>
+            <p>大家都知道，http是无状态的协议，客户每次读取web页面时，服务器都打开新的会话，而且服务器也不会自动维护客户的上下文信息，那么要怎么才能实现网上商店中的购物车呢，session就是一种保存上下文信息的机制，它是针对每一个用户的，变量的值保存在服务器端，通过SessionID来区分不同的客户,session是以cookie或URL重写为基础的，默认使用cookie来实现，系统会创造一个名为JSESSIONID的输出cookie，我们叫做session cookie,以区别persistent
+                cookies,也就是我们通常所说的cookie,注意session cookie是存储于浏览器内存中的，并不是写到硬盘上的，这也就是我们刚才看到的JSESSIONID，我们通常情是看不到JSESSIONID的，但是当我们把浏览器的cookie禁止后，web服务器会采用URL重写的方式传递Sessionid，我们就可以在地址栏看到sessionid=KWJHUG6JJM65HS2K6之类的字符串。</p>
+            <p>通常session cookie是不能跨窗口使用的，当你新开了一个浏览器窗口进入相同页面时，系统会赋予你一个新的sessionid，这样我们信息共享的目的就达不到了，此时我们可以先把sessionid保存在persistent cookie中，然后在新窗口中读出来，就可以得到上一个窗口SessionID了，这样通过session cookie和persistent cookie的结合我们就实现了跨窗口的session tracking（会话跟踪）。</p>
+        </div>
+        <!-- ？浏览器的存储 -->
+        <div class="browser-storage">
+            <h2>？浏览器的存储</h2>
+            <img src="../../../src/assets/imgs/storage.jpg" alt="">
+        </div>
+        <!-- ？最新的 Web 开发标准，标准化，可用性 -->
+        <div class="latest-web-standard">
+            <h2>？最新的 Web 开发标准，标准化，可用性</h2>
+        </div>
+        <!-- ？浏览器的兼容性 -->
+        <div class="browser-compatibility">
+            <h2>？浏览器的兼容性</h2>
+            -o-transform:rotate(7deg); // Opera <br>-ms-transform:rotate(7deg); // IE<br>-moz-transform:rotate(7deg); // Firefox <br>-webkit-transform:rotate(7deg); // Chrome <br>transform:rotate(7deg); // 统一标识语句
+        </div>
+        <div class="http-request">
+            <h2>？HTTP请求过程</h2>
+            <p>HTTP协议就是基于TCP/IP协议模型来传输信息的。</p>
+            <p>通俗来讲，他就是计算机通过网络进行通信的规则，是一个基于请求与响应，无状态的，应用层的协议，常基于TCP/IP协议传输数据。</p>
+            <img src="../../../src/assets/imgs/http.jpg" alt="">
+            <article>
+                TCP/IP网络传输协议包含四层协议系统：链路层，网络层，传输层，应用层。<br> 链路层：通常包括操作系统中的设备驱动程序和计算机中对应的网络接口卡。<br> 网络层：处理分组在网络中的活动，包含IP、ICMP、IGMP协议。<br> 传输层：为两台主机上的应用程序提供端到端的通信。TCP采用了超时重传、发送和接收端到端的确认分组等机制。<br> 应用层：决定了向用户提供应用服务时通信的活动，http协议，HTTP客户机发起一个与服务器的TCP连接， 一旦连接建立，浏览器（客户机）和服务器进程就可以通过套接字接口访问TCP(网络套接字是IP地址与端口的组合)
+            </article>
+            <img src="../../../src/assets/imgs/tcp_connect.jpg" alt="">
+            <h3>http请求报文</h3>
+            <p>一个HTTP请求报文由请求行（request line）、请求头部（header）、空行和请求数据4个部分组成</p>
+            <ol>
+                <li>
+                    <p><strong>请求行（request line）</strong> </p>
+                    <ol>
+                        <li>请求方法</li>
+                        <ul>
+                            <li><strong>GET</strong></li>
+                            <li><strong>POST</strong></li>
+                            <li><strong>PUT</strong></li>
+                            <li><strong>DELETE</strong></li>
+                            <li>PATCH</li>
+                            <li>HEAD</li>
+                            <li>OPTIONS:预检请求，查看当前服务器支持哪些通信选项，预检请求报文中的 Access-Control-Request-Method 首部字段告知服务器实际请求所使用的 HTTP 方法；Access-Control-Request-Headers 首部字段告知服务器实际请求所携带的自定义首部字段</li>
+                            <li>TRACE</li>
+                        </ul>
+                        <li>
+                            <p>请求地址</p>
+                            <p>URL:统一资源定位符</p>
+                            <p>组成：
+                                <协议>：//
+                                    <主机>：
+                                        <端口>/
+                                            <路径>
+                            </p>
+                        </li>
+                        <li>
+                            <p>协议版本</p>
+                            <p>HTTP/主版本号.次版本号，常用的有HTTP/1.0,HTTP/1.1和HTTP2.0</p>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <p><strong>请求头部（header）</strong></p>
+                    <p>请求头部为请求报文添加了一些附加信息，由“名/值”对组成，每行一对，名和值之间使用冒号分隔。</p>
+                </li>
+                <li>
+                    <p><strong>空行</strong></p>
+                    <p>请求头部的最后会有一个空行，表示请求头部结束，接下来为请求数据，这一行非常重要，必不可少。</p>
+                </li>
+                <li>
+                    <p><strong>请求数据</strong></p>
+                    <p>下面是post请求，get请求没有请求数据。</p>
+                    <blockquote>POST 　/index.php　HTTP/1.1 　　 请求行<br>Host: localhost<br>User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:10.0.2) Gecko/20100101 Firefox/10.0.2　　请求头<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,<i>/</i>;q=0.8<br>Accept-Language:
+                        zh-cn,zh;q=0.5
+                        <br>Accept-Encoding: gzip, deflate<br>Connection: keep-alive<br>Referer:
+                        <a href="https://link.zhihu.com/?target=http%3A//localhost/" class=" external" target="_blank" rel="nofollow noreferrer" data-za-detail-view-id="1043"><span class="invisible">http://</span><span class="visible">localhost/</span><span class="invisible"></span></a><br>Content-Length：25<br>Content-Type：application/x-www-form-urlencoded<br>　　空行<br>username=aa&amp;password=1234　　请求数据
+                    </blockquote>
+                </li>
+            </ol>
+            <h3>http响应报文</h3>
+            <p>HTTP响应报文主要由状态行、响应头部、空行以及响应数据四个部分组成。</p>
+            <ol>
+                <li>
+                    <p><strong>状态行</strong></p>
+                    <ul>
+                        <li>协议版本：于请求报文一致</li>
+                        <li>
+                            状态码：分为3位数字
+                            <ul>
+                                <li>1xx：指示信息--表示请求已接收，继续处理</li>
+                                <li>2xx：成功--表示请求已被成功接收、理解、接受</li>
+                                <li>3xx：重定向--要完成请求必须进行更进一步的操作,301:强制缓存302：协商缓存</li>
+                                <li>4xx：客户端错误--请求有语法错误或请求无法实现</li>
+                                <li>5xx：服务器端错误--服务器未能实现合法的请求</li>
+                            </ul>
+                            <img src="../../../src/assets/imgs/http_code.jpg" alt="">
+                        </li>
+                        <li>状态码描述：对状态码的描述</li>
+                    </ul>
+                </li>
+                <li>
+                    <p><strong>响应头部</strong></p>
+                    <p>与请求头部类似，为响应报文添加了一些附加信息</p>
+                </li>
+                <li>
+                    <p><strong>空行</strong></p>
+                </li>
+                <li>
+                    <p><strong>响应数据</strong></p>
+                    <p>下面是一个响应报文的实例：</p>
+                    <blockquote>HTTP/1.1 200 OK　　状态行<br>Date: Sun, 17 Mar 2017 08:12:54 GMT　　响应头部<br>Server: Apache/2.2.8 (Win32) PHP/5.2.5<br>X-Powered-By: PHP/5.2.5<br>Set-Cookie: PHPSESSID=c0huq7pdkmm5gg6osoe3mgjmm3; path=/<br>Expires: Thu, 19 Nov 1981 08:52:00
+                        GMT
+                        <br>Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0<br>Pragma: no-cache<br>Content-Length: 4393<br>Keep-Alive: timeout=5, max=100<br>Connection: Keep-Alive<br>Content-Type: text/html; charset=utf-8<br>　　空行<br>&lt;html&gt;　　响应数据<br>&lt;head&gt;<br>&lt;title&gt;HTTP响应示例&lt;title&gt;<br>&lt;/head&gt;<br>&lt;body&gt;<br>Hello
+                        HTTP!
+                        <br>&lt;/body&gt;<br>&lt;/html&gt;</blockquote>
+                </li>
+            </ol>
+            <div>
+                <h3>TCP四次挥手，断开连接</h3>
+                <p>当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的啊。那对于TCP的断开连接，这里就有了神秘的“四次分手”。</p>
+                <p>TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。<br>TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；<br>但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；<br>当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。</p>
+                <img src="../../../src/assets/imgs/tcp_disconnect.jpg" alt="">
+            </div>
+        </div>
+        <div class="http-vs-https">
+            <h2>http和https的区别</h2>
+            <p>HTTP超文本传输协议是一种使用明文数据传输的网络协议，连接很简单，是无状态的；数据什么的都是可见的;端口是80</p>
+            <p>HTTPS协议是对HTTP的一种升级，给数据进行了ssl加密处理;需要到ca申请证书；端口是443</p>
+            <p>HTTPS服务端和客户端之间的所有通讯，都是加密的(RSA加密算法)，具体讲，是客户端产生一个对称的密钥，通过server 的ca证书来交换密钥，一般意义上的握手过程</p>
+        </div>
+        <!-- ？跨域的原理 同源性 -->
+        <div class="cross-domain">
+            <h2>？跨域的原理 同源性</h2>
+            <p>浏览器的同源策略：（IE特殊）
+                <br>如果两个页面的协议，主机和端口（如果有指定）都相同，则两个页面具有相同的源
+                <br>源的继承：在页面中用 about:blank 或 javascript: URL 执行的脚本会继承打开该 URL 的文档的源，因为这些类型的 URLs 没有明确包含有关原始服务器的信息。
+            </p>
+            <p>
+                可以实现跨域的方式：
+                <ul>
+                    <li>script标签嵌入跨域脚本</li>
+                    <li>link标签嵌入css样式跨域</li>
+                    <li>img标签引入跨域的资源</li>
+                    <li>video，audio嵌入多媒体资源</li>
+                    <li>@font-face实现字体的跨域</li>
+                    <li>frame，iframe载入的跨域资源</li>
+                </ul>
+            </p>
+            <p>
+                如何允许跨域：
+                <br>使用CORS允许跨域资源访问：CORS是一种机制，它使用额外的 HTTP 头来告诉浏览器，让运行在一个 origin (domain) 上的Web应用被准许访问来自不同源服务器上的指定的资源。
+                <br>使用JsonP允许跨域资源访问：借助script标签，引入jsonp文件，通过callback的形式实现跨域，不过只支持get请求
+                <br>使用Nginx代理
+                <p>跨源脚本api访问使用window window.blur,window.close,window.focus,window.postMessage,window.location,window.opener,window.parent等
+                </p>
+                <p>跨源数据存储访问：Cookies
+                    <br>不管使用哪个协议（HTTP/HTTPS）或端口号，浏览器都允许给定的域以及其任何子域名(sub-domains) 访问 cookie。设置 cookie 时，你可以使用Domain，Path，Secure，和Http-Only标记来限定其访问性。读取 cookie 时，不会知晓它的出处。 即使您仅使用安全的https连接，您看到的任何cookie都可能使用不安全的连接进行设置。
+                    <br>使用cookie可做带身份凭证的接口请求Access-Control-Allow-Origin设为允许的域名，将cookie信息带入
+                    <br>只有cookie的domain和path与请求的URL匹配才会发送这个cookie
+                    <br>cookie的过期时间设置问题：cookie只在设置的cookie过期时间之前一直有效，即使窗口或浏览器关闭。 sessionStorage不在不同的浏览器窗口中共享，即使是同一个页面；localStorage 在所有同源窗口中都是共享的；cookie也是在所有同源窗口中都是共享的 sessionStorage 只要同源的同窗口（或tab）中，刷新页面或进入同源的不同页面，数据始终存在。也就是说只要这个浏览器窗口没有关闭，加载新页面或重新加载，数据仍然存在。
+                    localStorage：始终有效，窗口或浏览器关闭也一直保存；
+                    <a href="https://www.geekjc.com/post/58e10a3867d6027b0d916752">cookie, session,storage</a>
+                </p>
+            </p>
+            <p>
+                如何阻止跨域：使用CSRF阻止跨域访问。资源不要采用上述可嵌入的方式
+            </p>
+        </div>
+        <div class="url-src-href-rel">
+            <h2>url src href rel有什么区别</h2>
+            <p>url: 统一资源定位符,互联网访问资源用的标准， 类似于： 协议://用户名:密码@子域名.域名.顶级域名:端口号/目录/文件名.文件后缀?参数=值#标志</p>
+            <p>src: 会将资源下载到本地，应用到项目中，例如脚本script或者img或者frame等；</p>
+            <p>href: 超文本引用,是将资源和当前页面建立联系，可跳转页面，也可以执行JavaScript表达式、方法和函数的列表 </p>
+            <p>rel: 用于定义链接的文件和HTML文档之间的关系，例如StyleSheet的意思就是样式调用</p>
+        </div>
+        <div>
+            <h2>？webview的原理</h2>
+            <p>webview就是用来显示页面的一个特殊view，多用于移动端，移动端目前都内置有webkit或者其他内核的浏览器，可直接显示H5页面；</p>
+            <p>原生和H5交互的话一般依赖webview，webview通过loadUrl形式显示页面，定义一些方法绑定到global，H5通过window.xxxfun()方式去调用</p>
+        </div>
+        <div class="h5-new-element">
+            <h2>？H5主要新增元素</h2>
+            <ul>
+                <li>用于绘画的 canvas 元素</li>
+                <li>用于媒介回放的 video 和 audio 元素</li>
+                <li>对本地离线存储的更好的支持</li>
+                <li>新的特殊内容元素，比如 article、footer、header、nav、section</li>
+                <li>新的表单控件，比如 calendar、date、time、email、url、search</li>
+            </ul>
+        </div>
+        <div class="css3-new">
+            <h2>？CSS3主要新特性</h2>
+            <ul>
+                <li>动画</li>
+                <li>背景渐变</li>
+                <li>2D、3D转换</li>
+                <li>图片效果</li>
+                <li>盒模型</li>
+                <li>多列</li>
+            </ul>
+            <h3>伪类:hover,:active等</h3>
+            <h3>伪元素:before :after,:first-line ,:last-line</h3>
+        </div>
+        <div>
+            <h2>？overflow：hidden为什么可以清除浮动</h2>
+            <p>overflow.hidden会触发BFC.BFC的意思是，我这个元素里面的子孙元素，不会影响外部元素的布局。<br>所以从BFC的本意来说，必须给浮动元素撑出高度，使得后续的元素无法跟浮动元素共享同一水平位置，看上去就是 clear both 的效果了</p>
+        </div>
+        <div>
+            <h2>？seo怎么实现</h2>
+            <p></p>
+        </div>
+        <div>
+            <h2>？怎么实现localStorage超过1M自动清除</h2>
+            需要封装下代码，保存的时候将当前时间一并保存到storage中
+            <img src="../../../src/assets/imgs/localStorage.jpg" alt="">
+        </div>
+        <div>
+            <h2>？img怎么实现根据屏幕自动切换图片</h2>
+            <p>
+                meta name="viewport" content="width=device-width; initial-scale=1.0"<br> img {max-width:100%; }<br> img src="smallRes.jpg" data-fullsrc="largeRes.jpg"<br> link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px)"
+                href="shetland.css"
+            </p>
+        </div>
+        <div>
+            <h2>？防抖及主要运用场景</h2>
+            <p></p>
+            <h2>？节流及主要运用场景</h2>
+        </div>
+        <div>
+            <h2>？ajax 实现文件上传</h2>
+            <h2>？formData的兼容性</h2>
+
+        </div>
+        <div class="promise-async-await">
+            <h2>？Promise</h2>
+            <p>
+                promise是异步编程的一种解决方案。替代原生的各种回调函数和事件。
+                <br /> promise有三种状态，pending（进行中），fulfilled（成功），rejected（失败）；
+                <br /> 状态从pending到fulfilled，或者pending到rejected都是resolved，状态不会再改变。也就是说执行了resolve()方法之后状态就不会改变了；
+                <br /> 其构造函数接受一个函数作为参数，这个函数的两个参数分别是resolve和reject两个函数，在各个函数里面处理异步操作结果。
+                <br />也可用promise的实例.then((resolvedValue) => {}, (rejectedError) => {})的方式获得异步操作结果，resolve()方法执行之后就是then()方法接收的第一个参数方法； reject方法就是then()方法里面的接收的第二个参数，最好的方式是用catch()去接收报错信息，catch不仅可以接收promise的报错，也能抓取之前代码里面的错误，比如then里面的报错。
+                <br />Promise.all() 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例.
+                <br />Promise.all接收的参数必须是一个数组，数组里面都是promise实例，并且必须所有的子promise都返回fulfilled，该promise才会是fulfilled，否则只要有一个reject就是rejected
+                <br />Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
+                <br />Promise.all接收的参数必须是一个数组，数组里面都是promise实例，但是和all不一样的是只要子promise中有一个实例改变了状态，该promise状态就会跟着改变了
+                <br />Promise.resolve() 有时候需要将现有对象转为Promise对象，状态为resolved,将传入的参数可以是promise也可以是含有then的对象，还可以不带任何参数等等。执行then方法
+                <br />Promise.reject() 返回一个新的Promise的对象，状态为rejected.参数和resolve一样，但是如果是thenable的话会直接将thenable返回，而不是执行then方法。
+            </p>
+            <h2>？async await</h2>
+            <p>async 是Generator函数的语法糖，表示这里有异步操作，需要结合await，告知紧跟后面的表达式这里需要等待结果</p>
+            <p>async函数返回一个Promise对象，那就可以then()，按照上面promise的流程走</p>
+            <p>await命令后面是一个 Promise 对象，返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值 </p>
+            <h2>fetch和axios，ajax的区别</h2>
+            <p>fetch：全局量 window 的一个方法，用promise来处理结果；ajax是XMLHttpRequest请求，open，send，最后得到response， ajax.onreadystatechange=function (){}</p>
+            <p>fetch不会主动传送cookie，需要配置属性credentials: ’same-origin'</p>
+            <p>fetch比ajax更加方便</p>
+        </div>
+        <!-- ？js原型链，判断变量是否是function -->
+        <!-- TODO 原型链-->
+        <div class="js-prototype">
+            <h2>？js原型链，浅拷贝深拷贝，判断变量是否是function</h2>
+            <h3>原型链</h3>
+            <p>
+                js内部对象可以分为函数对象和普通对象，函数对象有内置的Function,Object,Array,String,Boolean,Number,以及利用function创建出来的对象xx function xx(){};
+            </p>
+            <p>
+                函数对象都有prototype属性，该属性是一个对象，内部有constructor属性，该属性指向的是原函数对象，Function函数对象内的prototype没有constructor属性；
+            </p>
+            <p>
+                两个类function通过原型继承了对方的方法，那么就形成了继承，同时也是原型链的形成。 原型prototype和--proto--和constructor的区别是：
+            </p>
+            <img src="../../../src/assets/imgs/proto.jpg" alt="">
+            <h3>深拷贝，浅拷贝</h3>
+            <p>js中的两种变量类型，即值类型（数值、布尔值、null、undefined）和引用类型（对象、数组、函数）。深拷贝和浅拷贝只针对引用类型(函数是按照值传递的)。</p>
+            <ul>
+                <li>基本数据类型的特点：直接存储在栈(stack)中的数据</li>
+                <li>引用数据类型的特点：<strong>存储的是该对象在栈中的引用，真实的数据存放在堆内存里</strong></li>
+            </ul>
+            <p>浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存。但深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象。</p>
+            <p>赋值操作会导致两个变量联动，一个改变另外一个跟着改变，赋值操作是直接将原始对象在栈中的地址赋过去了；浅拷贝是按位拷贝对象，创建一个新的对象。</p>
+            <p>
+                深拷贝方式：
+                <ul>
+                    <li>JSON.parse(JSON.stringify(obj))变成按值传递：缺点是会忽略undefined或者function</li>
+                    <li>递归创建一个新对象 遍历要拷贝的对象属性添加给新对象</li>
+                    <li>lodash库里面的deepClone</li>
+                </ul>
+            </p>
+            <p>
+                浅拷贝的方式：
+                <ul>
+                    <li>通过{...}结构的方式</li>
+                    <li>Object.assign({},obj)</li>
+                    <li>Array.prototype.concat()这里给空参数</li>
+                    <li>Array.prototype.slice()这里给空参数</li>
+                </ul>
+            </p>
+            <p>浅拷贝只解决了第一层的问题，如果接下来的值当中还有对象{}的话，改变第一层的值还是会影响原数据有问题，这时候需要深拷贝。</p>
+            <p>
+                <b>按值传递：</b>按值传递是针对简单类型的，值类型传递就是两个变量，毫无关系
+            </p>
+            <p><b>按址传递：</b>按址传递是针对引用类型，对象，数组。<br>引用类型就是两个变量，但是内存地址是一个。<br>引用类型等于复制指针。<br></p>
+            <img src="../../../src/assets/imgs/deep_clone.png" alt="">
+            <p>深拷贝实现原理：for in遍历对象属性，hasOwnProperty方式去添加到新的对象上</p>
+        </div>
+        <div>
+            <h2>？匿名函数和闭包</h2>
+            匿名函数就是没有函数名的函数，最灵活的对象，不会造成命名冲突。
+            <img src="../../../src/assets/imgs/function.jpg" alt=""> 闭包的好处就是保证作用域不会相互污染；
+        </div>
+        <!-- ？数据可视化工具 -->
+        <div class="data-visibility">
+            <h2>？数据可视化工具</h2>
+            Echarts, HighCharts，canvas
+            <h3>生成一张图片</h3>
+            <p>
+                var image = new Image();<br> var c = document.getElementById("myCanvas");<br> var ctx = c.getContext("2d");<br> var img = document.getElementById("scream");<br> ctx.font = "10px Arial";<br> function createImg(name, zuowei, color) {
+                <br> // 姓名<br> ctx.fillText(name, 93, 373);<br> ctx.fillText(name, 393, 370);<br> // 座位号<br> ctx.font = "bold 20px Arial";<br> ctx.fillText(zuowei, 216, 350);<br> ctx.fillText(zuowei, 393, 350);<br> // 座位颜色<br> ctx.font = "bold 20px Arial";<br>                ctx.fillText(color, 264, 350);<br> ctx.fillText(color, 441, 350);<br> // 生成图片<br> image = c.toDataURL("image/png");<br> return image;<br> }
+                <br> ctx.drawImage(img, 0, 0, 550, 520);<br> var src = createImg(name, zuowei, color);<br> $('#box').attr('src', src);<br>
+            </p>
+        </div>
+        <!-- webpack的项目构建 -->
+        <div class="webpack-build">
+            <h2>？webpack的项目构建</h2>
+            <p>按照路由ensure按需加载；</p>
+            <p>各种loader编译，可选择某些文件不需要编译；</p>
+            <p>tree shaking去除不需要的代码；</p>
+            <p>各种插件支持：浏览器的支持等</p>
+        </div>
+        <div>
+            <h2>？Vue相关性能优化</h2>
+            <h3>路由类型hash history 中pushState, replaceState两个方法</h3>
+            <p>history中pushState方法和replaceState方法类似，pushState会在浏览器历史记录里面添加一项；replaceState则会直接修改本条目；与window.onpopstate相互合作。需要注意的是，调用 history.pushState() 或者 history.replaceState() 不会触发 popstate 事件。 opstate事件只会在浏览器某些行为下触发， 比如点击后退、前进按钮(或者在JavaScript中调用history.back()、history.forward()、history.go()方法)。</p>
+            <p>pushState不会立即刷新页面，<br>history.pushState({}, "");<br> window.onpopstate = function(event) { //这里可以监听到浏览器的返回事件，并做你想做的事情， //例如：跳转到另一个网页 location.href = "https://www.baidu.com"; };
+            </p>
+        </div>
+        <div>
+            <h2>？ES6</h2>
+            <h3>数组合并</h3>
+            <p>...解构</p>
+            <p>concat连接</p>
+            Array.from()和[].slice.call()均可以返回一个数组
+        </div>
+        <div>
+            <h2>Event Loop</h2>
+            <p>
+                js执行机制分为宏任务和微任务，正常的同步代码是宏任务，js会将微任务或者异步任务放到另外一个异步任务栈里面，当宏任务执行结束，会从异步栈里面拿一个异步任务出来执行；<br> 宏任务包括setTimeout,setInterval,同步代码；微任务包括异步，promise等
+            </p>
+        </div>
+        <div>
+            <h2>垃圾回收机制</h2>
+            <p>
+                js的垃圾回收机制是依从“可达性”，当它发现一个对象的时候，会对这对象做一个标记，然后继续遍历，查看该对象是否有被其他对象引用，如果有，再将子对象标记，以此类推。<br> 当js发现有些对象没有被引用，也就是不可达之后就会销毁该对象。
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

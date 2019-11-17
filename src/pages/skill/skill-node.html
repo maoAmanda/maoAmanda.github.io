@@ -1,0 +1,70 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h2 id="node">HTML DOM => Node NodeType Element NodeList</h2>
+        <a href="http://10tiao.com/html/400/201504/205221675/1.html">JavaScript中Element与Node的区别，children与childNodes的区别</a>
+        <div>
+            <h2>HTML DOM 节点</h2>
+            <p>在 HTML DOM （文档对象模型）中，每个部分都是节点：</p>
+            <ul>
+                <li>文档本身是文档节点</li>
+                <li>所有 HTML 元素是元素节点</li>
+                <li>所有 HTML 属性是属性节点</li>
+                <li>HTML 元素内的文本是文本节点</li>
+                <li>注释是注释节点</li>
+            </ul>
+        </div>
+        <div>
+            <h2>Node?</h2>
+            <p>Node(节点)是DOM层次结构中的任何类型的对象的通用名称，Node有很多类型，如元素节点，属性节点，文本节点，注释节点等，</p>
+            <p>Node有几个子类型：Element,Text, Attribute,RootElement,Comment,Namespace等,这里就是通过NodeType区分</p>
+            <table class="dataintable" style="margin: 0px auto; border: 1px solid #c0c0c0; border-collapse: collapse; color: #333333; font-family: Georgia, 'Times New Roman', Times, san-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 25px; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; background-color: #ffffff; width: 440px; height: 153px;"
+                cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <th style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px;">节点类型</th>
+                        <th style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px;">NodeType</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">元素element</td>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">1</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">属性attr</td>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">2</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">文本text</td>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">3</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">注释comments</td>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">8</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">文档document</td>
+                        <td style="border: 1px solid #c0c0c0; border-collapse: collapse; padding: 3px; word-break: normal !important;">9</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Node具有childNodes属性，获取到的列表就是NodeList类型</p>
+            <h2>Element?</h2>
+            <p><strong>Element</strong>继承了Node类，也就是说<strong>Element</strong>是Node多种类型中的一种，即当NodeType为1时Node即为ElementNode，另外<strong>Element</strong>扩展了Node，<strong>Element</strong>拥有id、class、children等属性，当然也有childNodes属性，但是获取到的值不一样，children获取到的就是元素，childNodes获得的就是包含空白的Text的节点</p>
+            <p>元素(Element)和结点(Node)的区别，元素是一个小范围的定义，必须是含有完整信息的结点才是一个元素，例如&lt;div&gt;…&lt;/div&gt;。但是一个结点不一定是一个元素，而一个元素一定是一个结点。</p>
+            <p style="color: red;">一个需要注意的地方就是，HTML文档两个标签之间的空白也是这棵树的一个节点（Text节点）。 &lt;a&gt; &lt;b&gt;&lt;/b&gt; &lt;a&gt; 中a有三个节点text, b , text</p>
+            <img src="./src/assets/imgs/elements_fun1.jpg" alt="">
+            <img src="./src/assets/imgs/elements_fun2.jpg" alt="">
+            <img src="./src/assets/imgs/elements_fun3.jpg" alt="">
+        </div>
+    </div>
+</body>
+
+</html>
