@@ -8,8 +8,99 @@
 </head>
 
 <body>
-    <h2 id="develop-rule">开发规范：</h2>
-    <a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow">正确的开发流程Git-flow</a>
+    <h1 id="develop-rule">开发规范：</h1>
+    <!-- <a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow">正确的开发流程Git-flow</a> -->
+    <div>
+        <p>git flow 规范</p>
+        <p>安装：<code>brew install git-flow-avh</code></p>
+        <p>在项目的根目录执行 “git flow init” 命令</p>
+        <code>
+            <strong> $ git flow init</strong><br>
+            Initialized empty Git repository in /Users/tobi/acme-website/.git/<br>
+            Branch name for production releases: [master] <br>
+            Branch name for "next release" development: [develop] <br>
+            <br>
+            How to name your supporting branch prefixes?<br>
+            Feature branches? [feature/] <br>
+            Release branches? [release/] <br>
+            Hotfix branches? [hotfix/]<br>
+        </code>
+    </div>
+    <hr>
+    <h2>开发中</h2>
+    <div>
+        <p><strong>git-flow 模式会预设两个主分支在仓库中：</strong> </p>
+        <p><strong>master分支</strong> 只能用来包括产品代码。你不能直接工作在这个 master 分支上，而是在其他指定的，独立的特性分支中。不直接提交改动到 master 分支上也是很多工作流程的一个共同的规则。
+        </p>
+        <p>
+            <strong>develop分支</strong> 是你进行任何新的开发的基础分支。当你开始一个新的功能分支时，它将是_开发_的基础。另外，该分支也汇集所有已经完成的功能，并等待被整合到 master 分支中。
+        </p>
+        <p><strong>feature分支</strong> 是开发一个单独的功能时新建的临时分支。后期合并到develop分支。
+        </p>
+        <pre>
+            <code>
+                <strong>$ git flow feature start rss-feed</strong><br>
+                Switched to a new branch 'feature/rss-feed'<br>
+                <br>
+                Summary of actions:<br>
+                - A new branch 'feature/rss-feed' was created, based on 'develop'<br>
+                - You are now on branch 'feature/rss-feed'<br>
+            </code>
+        </pre>
+        <p><strong>hotfix分支</strong>用于线上问题修复而临时新建的分支。 </p>
+        <pre>
+            <code>
+                <strong>$ git flow hotfix start missing-link</strong>
+            </code>
+            <code>
+                <strong>$ git flow hotfix finish missing-link</strong>
+            </code>
+        </pre>
+        <p>这个过程非常类似于发布一个 release 版本：</p>
+        <ol>
+            <li>完成的改动会被合并到 “master” 中，同样也会合并到 “develop” 分支中，这样就可以确保这个错误不会再次出现在下一个 release 中。</li>
+            <li>这个 hotfix 程序将被标记起来以便于参考。</li>
+            <li>这个 hotfix 分支将被删除，然后切换到 “develop” 分支上去。</li>
+        </ol>
+    </div>
+    <hr>
+    <h2>完成开发</h2>
+    <div>
+        <pre>
+            <code>
+                <strong>$ git flow feature finish rss-feed</strong><br>
+                Switched to branch 'develop'<br>
+                Updating 6bcf266..41748ad<br>
+                Fast-forward<br>
+                    feed.xml | 0<br>
+                    1 file changed, 0 insertions(+), 0 deletions(-)<br>
+                    create mode 100644 feed.xml<br>
+                Deleted branch feature/rss-feed (was 41748ad).<br>
+            </code>
+        </pre>
+        <p>最重要的是，这个 “feature finish” 命令会把我们的工作整合到主 “develop” 分支中去</p>
+    </div>
+    <hr>
+    <h2>测试通过，发布</h2>
+    <div>
+        <p><strong>release分支</strong> 它包括所有新的功能和必要的修复；并且它已经被彻底的测试过了。请注意，release 分支是使用版本号命名的。</p>
+        <pre>
+            <code>
+                <strong>$ git flow release start 1.1.5</strong>
+                Switched to a new branch 'release/1.1.5'
+            </code>
+            <code>
+                <strong>git flow release finish 1.1.5</strong> 
+            </code>
+        </pre>
+        <p>执行上面的命令：</p>
+        <ol>
+            <li>首先，git-flow 会拉取远程仓库，以确保目前是最新的版本。</li>
+            <li>然后，release 的内容会被合并到 “master” 和 “develop” 两个分支中去，这样不仅产品代码为最新的版本，而且新的功能分支也将基于最新代码。</li>
+            <li>为便于识别和做历史参考，release 提交会被标记上这个 release 的名字（在例子里是 “1.1.5”）。</li>
+            <li>清理操作，版本分支会被删除，并且回到 “develop”。</li>
+        </ol>
+    </div>
 </body>
 
 </html>

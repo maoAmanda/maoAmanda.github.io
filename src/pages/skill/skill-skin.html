@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>更换皮肤</title>
+</head>
+
+<body>
+  <div>
+    <p>
+      <h2>variable.scss示例代码：</h2>
+    </p>
+    <p>
+      <pre>
+        <code>
+            //颜色定义规范
+            $background-color-theme: #3f8e4d;//背景主题颜色默认
+            $background-color-theme1: red;//背景主题颜色1
+            $background-color-theme2: #652BF5;//背景主题颜色2
+            $background-color-theme3: deepskyblue;//背景主题颜色3
+            $background-color-themesec: #edc148;//背景次要主题颜色
+             
+            $font-color-theme : #3f8e4d;//字体主题颜色默认
+            $font-color-theme1 : red;//字体主题颜色1
+            $font-color-theme2 : #652BF5;//字体主题颜色2
+            $font-color-theme3 : deepskyblue;//字体主题颜色3
+            $font-color-themesec : #edc148;//字体次要主题颜色
+             
+            $font-color-shallow0 : #000;
+            $font-color-shallow1 : #111;
+            $font-color-shallow2 : #222;
+            $font-color-shallow3 : #333;
+            $font-color-shallow4 : #444;
+            $font-color-shallow5 : #555;
+            $font-color-shallow6 : #666;
+            $font-color-shallow7 : #777;
+            $font-color-shallow8 : #888;
+            $font-color-shallow9 : #999;
+            $font-color-shallowdb : #dbdbdb;
+             
+            //字体定义规范
+            $font_little_s:10px;
+            $font_little:12px;
+            $font_medium_s:14px;
+            $font_medium:16px;
+            $font_large_s:18px;
+            $font_large:20px;
+             
+        </code>
+          </pre>
+    </p>
+    <p>
+      <h2>base.scss示例代码：</h2>
+    </p>
+    <p>
+      <pre>
+          <code>
+            @charset "utf-8";
+            $font_default_color:$font-color-shallow3;
+            $font_default_size:$font_medium_s;
+             
+            *{
+              margin:0;padding:0;box-sizing:border-box;color:$font_default_color;
+              /*@include font-dpr($font_default_size);*/
+            }
+            a{text-decoration:none;color:$font_default_color;}
+            .sub-page { //routerView
+              position: fixed;top: 0;bottom: 0;width: 100%;background:#fff;right: 0;left: 0;z-index: 5;
+            }
+            #content{width:100%;position:absolute;@include px2rem(top,88px);bottom:0;overflow-x:auto;}
+            .width{
+              width:100%;
+            }
+            /*竖向居中*/
+            .table-cell{
+              display:table-cell;vertical-align:middle;text-align:center;
+            }
+            .middle{
+              vertical-align:middle;
+            }
+            /*弹性盒*/
+            .flex{
+              display: inline-flex;display: -webkit-flex;display: flex;
+            }
+            /*弹性盒-子元素可竖向居中*/
+            .flex-middle{
+              display :flex; display:-webkit-flex; align-items:center; -webkit-align-items:center; justify-content:center ;
+            }
+            .tl{
+              text-align:left;
+            }
+            .tc{
+              text-align:center;
+            }
+            .tr{
+              text-align:right;
+            }
+            .fl{
+              float:left;
+            }
+            .fr{
+              float:right;
+            }
+            .clear::after{
+              /*原理： overflow!=visible ;display!=block;float!=none;position!=static||relative 都可为元素创建BFC；消除边距重叠或者浮动产生的影响*/
+              content:'';overflow:hidden;clear:both;
+            }
+        </code>
+      </pre>
+    </p>
+    <p>
+      <h2> mixin.scss示例代码：</h2>
+    </p>
+    <p>
+      <pre>
+      <code>
+          @charset "utf-8";
+          @import "./variable";/*引入配置*/
+          @mixin font_size($size){/*通过该函数设置字体大小，后期方便统一管理；*/
+            @include font-dpr($size);
+          }
+          @mixin font_color($color){/*通过该函数设置字体颜色，后期方便统一管理；*/
+            color:$color;
+            [data-theme="theme1"] & {
+              color:$font-color-theme1;
+            }
+            [data-theme="theme2"] & {
+              color:$font-color-theme2;
+            }
+            [data-theme="theme3"] & {
+              color:$font-color-theme3;
+            }
+          }
+          @mixin bg_color($color){/*通过该函数设置主题颜色，后期方便统一管理；*/
+            background-color:$color;
+            [data-theme="theme1"] & {
+              background-color:$background-color-theme1;
+            }
+            [data-theme="theme2"] & {
+              background-color:$background-color-theme2;
+            }
+            [data-theme="theme3"] & {
+              background-color:$background-color-theme3;
+            }
+          }
+          /*px转rem*/
+          @mixin px2rem($property,$px,$px2:false,$px3:false,$px4:false){
+            $rem:75px;/* 设计稿尺寸/10 */
+            @if $px and $px2 and $px3 and $px4 {
+              #{$property}: ($px / $rem) + rem ($px2 / $rem) + rem ($px3 / $rem) + rem ($px4 / $rem) + rem;
+            }
+            @else if $px and $px2 {
+              #{$property}: ($px / $rem) + rem ($px2 / $rem) + rem;
+              //[data-model='pad'] & {#{$property}: ($px * 1.4 / $rem) + rem ($px2 * 1.4 / $rem) + rem;}
+            }
+            @else{
+              #{$property}: ($px / $rem) + rem!important;
+              //[data-model='pad'] & {#{$property}: ($px * 1.4 / $rem) + rem;}
+            }
+          }
+           
+          /*根据dpr计算font-size*/
+          @mixin font-dpr($font-size){
+            font-size: $font-size;
+            //[data-model="pad"] & { font-size: $font-size * 1.4; }
+            [data-dpr="2"] & { font-size: $font-size * 2;}
+            [data-dpr="3"] & { font-size: $font-size * 3;}
+          }
+           
+          /*弹性盒属性*/
+          %flexbox{
+            display: inline-flex;display: -webkit-flex;display: flex;
+          }
+          /*弹性盒比例*/
+          @mixin flex($num:1){
+            -webkit-box-flex:$num;-moz-box-flex:$num;-webkit-flex:$num;-ms-flex:$num;flex:$num;
+          }
+          /*超行溢出显示省略号*/
+          @mixin overflow($num:1,$fontSize:0,$lineHeight:1.5){
+            display: -webkit-box;-webkit-line-clamp:$num; overflow: hidden;
+            /*! autoprefixer: off */
+            -webkit-box-orient: vertical;
+            /* autoprefixer: on */
+            @if $fontSize!=0 and $lineHeight{/*高度需要撑开*/
+              line-height:$lineHeight;
+              @if $lineHeight < 1.2 {
+                line-height:1.2; /*最小需要1.2，否则在部分安卓机下第$num+1行会顶部漏出*/
+              }
+              height: $num * $fontSize * $lineHeight;
+              [data-dpr="2"] & { height: $num * $fontSize * $lineHeight * 2!important;}
+              [data-dpr="3"] & { height: $num * $fontSize * $lineHeight * 3!important;}
+            }
+          }
+           
+          //transition兼容写法
+          @mixin transition($content:all .2s){
+            -moz-transition: $content;
+            -webkit-transition: $content;
+            -o-transition: $content;
+            transition: $content;
+          }
+          //transfrom兼容
+          @mixin translateX($num:-50%){
+            -ms-transform: translateX($num);
+            -moz-transform: translateX($num);
+            -webkit-transform: translateX($num);
+            -o-transform: translateX($num);
+            transform: translateX($num);
+          }
+          @mixin translateY($num:-50%){
+            -ms-transform: translateY($num);
+            -moz-transform: translateY($num);
+            -webkit-transform: translateY($num);
+            -o-transform: translateY($num);
+            transform: translateY($num);
+          }
+          @mixin rotate($deg:90deg){
+            -ms-transform:rotate($deg);
+            -moz-transform:rotate($deg);
+            -webkit-transform:rotate($deg);
+            -o-transform:rotate($deg);
+            transform:rotate($deg);
+          }
+      </code>
+    </pre>
+    </p>
+  </div>
+  <div>
+    <p>
+      <h2>切换皮肤的方法</h2>
+    </p>
+    <pre>
+        <code>
+            &lt;template&gt;
+            &lt;div id="bookcaselist"&gt;
+              &lt;v-head :title="title" :showBack="showBack"&gt;&lt;/v-head&gt;
+              &lt;div id="content"&gt;
+                &lt;p @click="changeTheme('theme1')"&gt;&lt;/p&gt;
+                &lt;p @click="changeTheme('theme2')"&gt;&lt;/p&gt;
+                &lt;p @click="changeTheme('theme3')"&gt;&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;v-foot :activeIndex="3"&gt;&lt;/v-foot&gt;
+            &lt;/div&gt;
+          &lt;/template&gt;
+          &lt;script&gt;
+            export default {
+              name: 'mine',
+              data() {
+                return {
+                  title: '我的',
+                  showBack: false
+                }
+              },
+              methods: {
+                changeTheme(theme) {
+                  window.document.documentElement.setAttribute('data-theme', theme)
+                }
+              },
+              components: {
+              }
+            }
+          &lt;/script&gt;
+          &lt;style scoped="" lang="scss"&gt;
+            p{
+              @include px2rem(width,100px);
+              @include px2rem(height,100px);
+              @include px2rem(margin,20px);
+              float:left;
+            }
+            p:first-child{
+              background-color:red;
+            }
+            p:nth-child(2){
+              background-color:#652BF5;
+            }
+            p:last-child{
+              background-color:deepskyblue;
+            }
+          &lt;/style&gt;
+          </code>
+      </pre>
+  </div>
+</body>
+
+</html>
