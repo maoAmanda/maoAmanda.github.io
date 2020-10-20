@@ -83,6 +83,15 @@ function draw() {
     .attr("width", rectWidth)
     .attr("height", function (d) {
       return d;
+    })
+    .on("mouseover", function (d, i) {
+      d3.select(this).attr("fill", 'yellow');
+    })
+    .on("mouseout", function (d, i) {
+      d3.select(this)
+        .transition()
+        .duration(500)
+        .attr("fill", 'steelblue');
     });
 
   exitRect.remove();
